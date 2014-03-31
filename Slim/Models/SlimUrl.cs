@@ -1,8 +1,7 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 using SQLite;
 
-using Slim.Helpers;
+using Slim.Utils;
 
 namespace Slim.Models
 {
@@ -11,7 +10,6 @@ namespace Slim.Models
 		[PrimaryKey, AutoIncrement]
 		public int Id { get; set; }
 
-		[StringLength(2048)]
 		public string FullUrl { get; set; }
 
 		public string Hash { get; set; }

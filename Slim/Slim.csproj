@@ -73,8 +73,8 @@
     <Folder Include="ViewModels\" />
     <Folder Include="Repositories\" />
     <Folder Include="ValidationAttributes\" />
-    <Folder Include="Helpers\" />
     <Folder Include="Services\" />
+    <Folder Include="Utils\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Global.asax.cs">
@@ -90,8 +90,13 @@
     <Compile Include="Repositories\SlimUrlRepository.cs" />
     <Compile Include="ViewModels\SlimUrlListViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
-    <Compile Include="Helpers\ShortUrl.cs" />
     <Compile Include="Services\SlimUrlService.cs" />
+    <Compile Include="Models\SlimActivity.cs" />
+    <Compile Include="Utils\ShortUrl.cs" />
+    <Compile Include="Utils\DatabaseCreator.cs" />
+    <Compile Include="Repositories\SlimActivityRepository.cs" />
+    <Compile Include="Repositories\Repository.cs" />
+    <Compile Include="Models\Model.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Web.config" />

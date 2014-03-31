@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 // ShortURL https://gist.github.com/gabesumner/2148657
 
-namespace Slim.Helpers
+namespace Slim.Utils
 {
 	public static class ShortUrl
 	{

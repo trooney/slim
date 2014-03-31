@@ -7,7 +7,7 @@ using System.Web.Mvc.Ajax;
 
 using Slim.Models;
 using Slim.ViewModels;
-using Slim.Helpers;
+using Slim.Utils;
 using Slim.Services;
 
 namespace Slim.Controllers
@@ -15,10 +15,12 @@ namespace Slim.Controllers
 	public class FrontendController : Controller
 	{
 		protected SlimUrlService slimService;
+		public string foo { get; set; }
 
 		public FrontendController()
 		{
 			slimService = new SlimUrlService();
+			Console.WriteLine(foo);
 		}
 
 		private HomeViewModel CreateHomeViewModel() {

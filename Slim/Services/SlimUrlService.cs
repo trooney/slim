@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using Slim.Repositories;
 using Slim.Models;
-using Slim.Helpers;
+using Slim.Utils;
 
 namespace Slim.Services
 {
