@@ -16,7 +16,7 @@ namespace Slim
 			routes.MapRoute (
 				"SlimUrlRedirect",
 				"r/{hash}",
-				new { controller = "Frontend", action = "Redirect", hash = "" }
+				new { controller = "Frontend", action = "Redirection", hash = "" }
 			);
 
 			routes.MapRoute (

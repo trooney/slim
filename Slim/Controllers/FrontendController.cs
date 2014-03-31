@@ -43,13 +43,7 @@ namespace Slim.Controllers
 			ViewData["message"] = !ModelState.IsValid ? "Invalid form" : "Valid form";
 
 			if (ModelState.IsValid) {
-				SlimUrl slimUrl;
-				try {
-					slimUrl = slimService.GetByFullUrl(slimView.FullUrl);
-				} catch (System.InvalidOperationException) {
-					slimUrl = new SlimUrl{ FullUrl = slimView.FullUrl};
-					slimService.Save(slimUrl);
-				}
+				slimService.GetByFullUrlOrCreate(slimView.FullUrl);
 
 				return RedirectToAction("Index");
 			}
@@ -57,16 +51,12 @@ namespace Slim.Controllers
 			return View ("Index", CreateHomeViewModel());
 		}
 
-		public ActionResult Redirect (string hash)
+		public ActionResult Redirection (string hash)
 		{
-			SlimUrl slimUrl;
-			try {
-				slimUrl = slimService.GetByHash(hash);
-			} catch (System.InvalidOperationException) {
-				Console.WriteLine("Cannot find SlimUrl {0}", hash);
-				slimUrl = new SlimUrl();
-			}
-			return View(slimUrl);
+			slimService.IncrementCountForHash(hash);
+			SlimUrl s = slimService.GetByHash(hash);
+
+			return View(s);
 		}
 	}
 }

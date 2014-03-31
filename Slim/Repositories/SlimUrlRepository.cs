@@ -43,6 +43,11 @@ namespace Slim.Repositories
 		{
 			return db.Table<SlimUrl>().OrderByDescending(s => s.Id);
 		}
+
+		public void IncrementCount(string hash)
+		{
+			db.Execute("UPDATE SlimUrl SET Count = (Count + 1) WHERE Hash = ?", hash);
+		}
 	}
 }
 

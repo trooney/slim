@@ -11,21 +11,32 @@ namespace Slim.Services
 	{
 		protected SlimUrlRepository repository;
 
-		public string GenerateRandomHash()
+		public SlimUrlService ()
+		{
+			repository = new SlimUrlRepository();
+		}
+
+		public SlimUrl Save(SlimUrl s) {
+			s.CreatedDate = DateTime.Now;
+
+			repository.Insert(s);
+
+			s.Hash = GetUniqueHash();
+
+			repository.Update(s);
+
+			return s;
+		}
+
+		public string GetUniqueHash()
 		{
 			string hash;
 
 			do {
-				int hashId = new Random().Next(100000000,999999999);
-				hash = ShortUrl.Shrink(hashId);
+				hash = SlimUrl.GenerateRandomHash();
 			} while (repository.HashExists(hash));
 
 			return hash;
-		}
-
-		public SlimUrlService ()
-		{
-			repository = new SlimUrlRepository();
 		}
 
 		public SlimUrl GetByHash(string hash)
@@ -43,20 +54,22 @@ namespace Slim.Services
 			return repository.GetRecent();
 		}
 
-		public SlimUrl Save(SlimUrl s) {
-			s.CreatedDate = DateTime.Now;
+		public SlimUrl GetByFullUrlOrCreate(string fullUrl) {
+			SlimUrl s;
 
-			Console.WriteLine(s);
-
-			repository.Insert(s);
-
-			s.Hash = GenerateRandomHash();
-
-			Console.WriteLine(s);
-
-			repository.Update(s);
-
+			try {
+				s = GetByFullUrl(fullUrl);
+			} catch (System.InvalidOperationException) {
+				s = new SlimUrl{ FullUrl = fullUrl};
+				Save(s);
+			}
+				
 			return s;
+		}
+
+		public void IncrementCountForHash(string hash)
+		{
+			repository.IncrementCount(hash);
 		}
 
 	}
