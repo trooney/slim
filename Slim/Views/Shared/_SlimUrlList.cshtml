@@ -1,0 +1,22 @@
+﻿@model Slim.ViewModels.SlimUrlListViewModel
+
+<table class="rounded">
+<thead>
+	<tr>
+		<th>Id</th>
+		<th>Hash</th>
+		<th>Short URL</th>
+		<th>Full URL</th>
+	</tr>
+</thead>
+<tbody>
+@foreach (var slimUrl in Model.SlimUrls) {         
+<tr>
+	<td>@slimUrl.Id</td>
+	<td>@slimUrl.Hash</td>
+	<td>@string.Format("{0}://{1}{2}r/{3}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"), @slimUrl.Hash)</td>
+	<td>@slimUrl.FullUrl</td>
+</tr>
+}  
+</tbody>
+</table>

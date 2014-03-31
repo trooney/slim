@@ -1,0 +1,8 @@
+﻿@model Slim.ViewModels.HomeViewModel
+
+<h2>@ViewData["Message"]</h2>
+
+
+@Html.Partial("~/Views/Shared/_SlimUrlCreate.cshtml", Model.CreateViewModel)
+
+@Html.Partial("~/Views/Shared/_SlimUrlList.cshtml", Model.ListViewModel)

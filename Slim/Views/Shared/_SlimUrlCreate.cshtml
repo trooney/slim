@@ -1,0 +1,18 @@
+﻿@model Slim.ViewModels.SlimUrlCreateViewModel
+
+@if (!ViewData.ModelState.IsValid) {
+	<p><strong>Invalid submission:</strong></p>
+	@Html.ValidationSummary(false)
+}
+
+@using ( Html.BeginForm("IndexSubmit", "Frontend") ) {
+
+	<p>m.FullUrl: @Html.ValidationMessageFor(model => model.FullUrl)</p>
+	
+	<ul>
+		<li class="field append">
+			@Html.TextBoxFor(Model => Model.FullUrl, new {@class="input xwide", @placeholder="enter a url"})
+			<div class="medium primary btn"><input type="submit" value="Shorten" /></div>
+		</li>
+	</ul>
+}
