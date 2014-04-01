@@ -1,42 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
+
+using SQLite;
 using Slim.Models;
 
 namespace Slim.Repositories
 {
-	public class SlimUrlRepository
+	public class SlimUrlRepository : Repository<SlimUrl>
 	{
-		protected SQLite.SQLiteConnection db;
 
-		public SlimUrlRepository ()
+		public SlimUrlRepository (SQLiteConnection db) : base(db)
 		{
-			db = new SQLite.SQLiteConnection("App_Data/slim.sqlite");
-		}
-			
-		public void Insert(SlimUrl s)
-		{
-			 db.Insert(s);
-		}
-
-		public void Update(SlimUrl s)
-		{
-			db.Update(s);
 		}
 
 		public bool HashExists(string hash)
 		{
-			var results = db.Query<SlimUrl>("select Hash from SlimUrl where Hash = ?", hash);
-			return results.Count >= 1;
+//			var results = db.Query<SlimUrl>("select Hash from SlimUrl where Hash = ?", hash);
+			return db.Table<SlimUrl>().Where( s => s.Hash.Equals(hash)).Count() > 0;
 		}
 						
 		public SlimUrl GetByHash(string hash)
 		{
-			return db.Get<SlimUrl>(s => s.Hash.Equals(hash));
+			//db.Get<SlimUrl>(s => s.Hash.Equals(hash));
+			return db.Table<SlimUrl>().Where( s => s.Hash.Equals(hash) ).FirstOrDefault();
+
 		}
 
 		public SlimUrl GetByFullUrl(string fullUrl)
 		{
-			return db.Get<SlimUrl>(s => s.FullUrl.Equals(fullUrl));
+			// db.Get<SlimUrl>(s => s.FullUrl.Equals(fullUrl));
+			return db.Table<SlimUrl>().Where( s => s.FullUrl.Equals(fullUrl) ).FirstOrDefault();
 		}
 
 		public IEnumerable<SlimUrl> GetRecent()

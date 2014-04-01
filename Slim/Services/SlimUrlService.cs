@@ -1,29 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using Slim.Repositories;
+using Slim.Components;
 using Slim.Models;
-using Slim.Utils;
+using Slim.Repositories;
 
 namespace Slim.Services
 {
-	public class SlimUrlService
+	public class SlimUrlService : Service
 	{
 		protected SlimUrlRepository repository;
 
-		public SlimUrlService ()
+		protected SlimActivityService activityService;
+
+		public SlimUrlService (DependencyManager dm) : base(dm)
 		{
-			repository = new SlimUrlRepository();
+			this.repository = dm.GetRepository<SlimUrlRepository>();
+			this.activityService = dm.GetService<SlimActivityService>();
+		}
+
+		public SlimUrl Create()
+		{
+			return new SlimUrl();
 		}
 
 		public SlimUrl Save(SlimUrl s) {
-			s.CreatedDate = DateTime.Now;
+		
+			// New URLs need a unique hash
+			if (s.Id == 0) {
+				s.Hash = GetUniqueHash();
+				s.CreatedDate = DateTime.Now;
+			}	
 
-			repository.Insert(s);
-
-			s.Hash = GetUniqueHash();
-
-			repository.Update(s);
+			repository.Save(s);
 
 			return s;
 		}
@@ -54,22 +63,18 @@ namespace Slim.Services
 			return repository.GetRecent();
 		}
 
-		public SlimUrl GetByFullUrlOrCreate(string fullUrl) {
-			SlimUrl s;
-
-			try {
-				s = GetByFullUrl(fullUrl);
-			} catch (System.InvalidOperationException) {
-				s = new SlimUrl{ FullUrl = fullUrl};
-				Save(s);
-			}
-				
-			return s;
+		public void LogCreate(SlimUrl s)
+		{
+			activityService.LogCreate(s);
 		}
 
-		public void IncrementCountForHash(string hash)
+		public void LogRedirect(SlimUrl s)
 		{
-			repository.IncrementCount(hash);
+			// Increment object and record in the database
+			s.Count++;
+			repository.IncrementCount(s.Hash);
+
+			activityService.LogRedirect(s);
 		}
 
 	}

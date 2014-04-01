@@ -8,7 +8,5 @@ namespace Slim.Models
 	{
 		[PrimaryKey, AutoIncrement]
 		public int Id { get; set; }
-
 	}
 }
-

@@ -7,27 +7,29 @@ using System.Web.Mvc.Ajax;
 
 using Slim.Models;
 using Slim.ViewModels;
-using Slim.Utils;
+using Slim.Components;
 using Slim.Services;
+using Slim.Repositories;
 
 namespace Slim.Controllers
 {
 	public class FrontendController : Controller
 	{
-		protected SlimUrlService slimService;
-		public string foo { get; set; }
+		protected SlimUrlService urlService;
 
-		public FrontendController()
+		protected SlimActivityService activityService;
+
+		public FrontendController(DependencyManager dm)
 		{
-			slimService = new SlimUrlService();
-			Console.WriteLine(foo);
+			this.urlService = dm.GetService<SlimUrlService>();
+			this.activityService = dm.GetService<SlimActivityService>();
 		}
 
 		private HomeViewModel CreateHomeViewModel() {
 			HomeViewModel vm = new HomeViewModel();
 			vm.CreateViewModel = new SlimUrlCreateViewModel();
 			vm.ListViewModel = new SlimUrlListViewModel();
-			vm.ListViewModel.SlimUrls = slimService.GetRecent();
+			vm.ListViewModel.SlimUrls = urlService.GetRecent();
 
 			return vm;
 		}
@@ -45,7 +47,14 @@ namespace Slim.Controllers
 			ViewData["message"] = !ModelState.IsValid ? "Invalid form" : "Valid form";
 
 			if (ModelState.IsValid) {
-				slimService.GetByFullUrlOrCreate(slimView.FullUrl);
+				SlimUrl s = urlService.GetByFullUrl(slimView.FullUrl);
+
+				if (s == null) {
+					s = urlService.Create();
+					s.FullUrl = slimView.FullUrl;
+					urlService.Save(s);
+					urlService.LogCreate(s);
+				}
 
 				return RedirectToAction("Index");
 			}
@@ -53,10 +62,21 @@ namespace Slim.Controllers
 			return View ("Index", CreateHomeViewModel());
 		}
 
+		//[HandleError(Exception = typeof(HttpException), View = "Error404")]
+//		[HandleError]
 		public ActionResult Redirection (string hash)
 		{
-			slimService.IncrementCountForHash(hash);
-			SlimUrl s = slimService.GetByHash(hash);
+
+			SlimUrl s = urlService.GetByHash(hash);
+
+			if (s == null) {
+				throw new HttpException(404, "Not found");
+//				Response.StatusCode = 400;
+//				Response.TrySkipIisCustomErrors = true;
+//				return HttpNotFound();
+			}
+
+			urlService.LogRedirect(s);
 
 			return View(s);
 		}

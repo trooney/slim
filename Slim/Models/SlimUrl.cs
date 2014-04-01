@@ -1,15 +1,12 @@
 ﻿using System;
 using SQLite;
 
-using Slim.Utils;
+using Slim.Components;
 
 namespace Slim.Models
 {
-	public class SlimUrl
+	public class SlimUrl : Model
 	{
-		[PrimaryKey, AutoIncrement]
-		public int Id { get; set; }
-
 		public string FullUrl { get; set; }
 
 		public string Hash { get; set; }

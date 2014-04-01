@@ -7,27 +7,26 @@ namespace Slim.Repositories
 {
 	public class Repository<T> where T : Model, new()
 	{
-		protected SQLite.SQLiteConnection db;
+		protected SQLiteConnection db;
 
-		public Repository()
+		public Repository(SQLiteConnection db)
 		{
-			db = new SQLite.SQLiteConnection("App_Data/slim.sqlite");
+			this.db = db;
 		}
 
 		public T GetById(int id)
 		{
-			return db.Get<T>(id);
+			// db.Get<T>(id);
+			return db.Table<T>().Where( r => r.Id.Equals(id) ).FirstOrDefault();
 		}
 
 		public void Save(T entity)
 		{
-			if (entity.Id == null) {
+			if (entity.Id == 0) {
 				db.Insert(entity);
 			} else {
 				db.Update(entity);
 			}
-
-
 		}
 	}
 }

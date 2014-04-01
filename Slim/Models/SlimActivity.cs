@@ -5,9 +5,9 @@ namespace Slim.Models
 {
 	public class SlimActivity : Model
 	{
-		public readonly string Created = "created";
+		public static readonly string WasCreated = "created";
 
-		public readonly string Redirected = "redirected";
+		public static readonly string WasRedirected = "redirected";
 
 		public int SlimId { get; set; }
 

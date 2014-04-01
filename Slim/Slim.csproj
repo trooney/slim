@@ -64,6 +64,7 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="Mono.Data.Sqlite" />
+    <Reference Include="System.Configuration" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\" />
@@ -74,7 +75,8 @@
     <Folder Include="Repositories\" />
     <Folder Include="ValidationAttributes\" />
     <Folder Include="Services\" />
-    <Folder Include="Utils\" />
+    <Folder Include="Components\" />
+    <Folder Include="Views\Error\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Global.asax.cs">
@@ -92,11 +94,15 @@
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="Services\SlimUrlService.cs" />
     <Compile Include="Models\SlimActivity.cs" />
-    <Compile Include="Utils\ShortUrl.cs" />
-    <Compile Include="Utils\DatabaseCreator.cs" />
     <Compile Include="Repositories\SlimActivityRepository.cs" />
     <Compile Include="Repositories\Repository.cs" />
     <Compile Include="Models\Model.cs" />
+    <Compile Include="Components\ShortUrl.cs" />
+    <Compile Include="Components\ControllerFactory.cs" />
+    <Compile Include="Services\SlimActivityService.cs" />
+    <Compile Include="Components\DependencyManager.cs" />
+    <Compile Include="Services\Service.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Web.config" />
@@ -110,6 +116,8 @@
     <Content Include="Views\Shared\_SlimUrlCreate.cshtml" />
     <Content Include="Views\Shared\_SlimUrlList.cshtml" />
     <Content Include="Views\Frontend\Redirection.cshtml" />
+    <Content Include="Views\Error\Error404.cshtml" />
+    <Content Include="Views\Error\Error500.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
