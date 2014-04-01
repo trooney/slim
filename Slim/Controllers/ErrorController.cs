@@ -16,18 +16,25 @@ namespace Slim.Controllers
 		{
 		}
 
+		private void RenderView(string name)
+		{
+//			string path = Path.Combine("~", "Views", "Error", name + ".cshtml");
+//
+//			// Output the view ourselves
+			View(name).ExecuteResult(ControllerContext);
+		}
+
 		// @NOTE Unknown routes get mapped to this method
 		protected override void HandleUnknownAction(string actionName) {
 			Response.StatusCode = 404;
-			string path = Path.Combine("~", "Views", "Error", "Error404.cshtml");
-			View(path).ExecuteResult(ControllerContext);
+			RenderView("Error404");
 		}
 
-		public ActionResult Error404()
+		public void Error404()
         {
 			Response.StatusCode = 404;
 			Response.TrySkipIisCustomErrors = true;
-            return View ();
+			RenderView("Error404");
         }
     }
 }

@@ -62,15 +62,16 @@ namespace Slim.Controllers
 			return View ("Index", CreateHomeViewModel());
 		}
 
-		//[HandleError(Exception = typeof(HttpException), View = "Error404")]
-//		[HandleError]
 		public ActionResult Redirection (string hash)
 		{
 
 			SlimUrl s = urlService.GetByHash(hash);
 
 			if (s == null) {
-				throw new HttpException(404, "Not found");
+//				throw new HttpException(404, "Not found");
+				Response.StatusCode = 404;
+				return View("NotFound");
+
 //				Response.StatusCode = 400;
 //				Response.TrySkipIisCustomErrors = true;
 //				return HttpNotFound();
@@ -80,6 +81,7 @@ namespace Slim.Controllers
 
 			return View(s);
 		}
+
 	}
 }
 

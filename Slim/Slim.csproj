@@ -76,7 +76,7 @@
     <Folder Include="ValidationAttributes\" />
     <Folder Include="Services\" />
     <Folder Include="Components\" />
-    <Folder Include="Views\Error\" />
+    <Folder Include="Content\swf\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Global.asax.cs">
@@ -116,8 +116,8 @@
     <Content Include="Views\Shared\_SlimUrlCreate.cshtml" />
     <Content Include="Views\Shared\_SlimUrlList.cshtml" />
     <Content Include="Views\Frontend\Redirection.cshtml" />
-    <Content Include="Views\Error\Error404.cshtml" />
-    <Content Include="Views\Error\Error500.cshtml" />
+    <Content Include="Views\Shared\Error404.cshtml" />
+    <Content Include="Views\Frontend\NotFound.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
