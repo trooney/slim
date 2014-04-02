@@ -3,15 +3,13 @@ using SQLite;
 
 namespace Slim.Models
 {
-	public class SlimActivity : Model
+	public class SlimActivity : SlimModel
 	{
-		public static readonly string WasCreated = "created";
-
-		public static readonly string WasRedirected = "redirected";
+		public enum ActivityTypes { Unknown, Created, Recreated, Redirected }
 
 		public int SlimId { get; set; }
 
-		public string Action { get; set; }
+		public int ActivityType { get; set; }
 
 		public DateTime CreatedDate { get; set; }
 	}

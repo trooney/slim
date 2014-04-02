@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Web;
 
 using Slim.Components;
 using Slim.Models;
@@ -13,10 +14,13 @@ namespace Slim.Services
 
 		protected SlimActivityService activityService;
 
+		protected SlimGeoLogService geoLogService;
+
 		public SlimUrlService (DependencyManager dm) : base(dm)
 		{
 			this.repository = dm.GetRepository<SlimUrlRepository>();
 			this.activityService = dm.GetService<SlimActivityService>();
+			this.geoLogService = dm.GetService<SlimGeoLogService>();
 		}
 
 		public SlimUrl Create()
@@ -63,17 +67,19 @@ namespace Slim.Services
 			return repository.GetRecent();
 		}
 
-		public void LogCreate(SlimUrl s)
+		public void LogCreate(SlimUrl s, HttpRequestBase request)
 		{
 			activityService.LogCreate(s);
 		}
 
-		public void LogRedirect(SlimUrl s)
+		public void IncrementCount(SlimUrl s)
 		{
-			// Increment object and record in the database
-			s.Count++;
-			repository.IncrementCount(s.Hash);
+			repository.IncrementCount(s);
+		}
 
+		public void LogRedirect(SlimUrl s, HttpRequestBase request)
+		{
+			repository.IncrementCount(s);
 			activityService.LogRedirect(s);
 		}
 

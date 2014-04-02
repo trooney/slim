@@ -5,7 +5,7 @@ using SQLite;
 
 namespace Slim.Repositories
 {
-	public class Repository<T> where T : Model, new()
+	public class Repository<T> where T : SlimModel, new()
 	{
 		protected SQLiteConnection db;
 

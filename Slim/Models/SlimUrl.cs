@@ -5,7 +5,7 @@ using Slim.Components;
 
 namespace Slim.Models
 {
-	public class SlimUrl : Model
+	public class SlimUrl : SlimModel
 	{
 		public string FullUrl { get; set; }
 

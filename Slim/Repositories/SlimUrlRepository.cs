@@ -15,20 +15,17 @@ namespace Slim.Repositories
 
 		public bool HashExists(string hash)
 		{
-//			var results = db.Query<SlimUrl>("select Hash from SlimUrl where Hash = ?", hash);
 			return db.Table<SlimUrl>().Where( s => s.Hash.Equals(hash)).Count() > 0;
 		}
 						
 		public SlimUrl GetByHash(string hash)
 		{
-			//db.Get<SlimUrl>(s => s.Hash.Equals(hash));
 			return db.Table<SlimUrl>().Where( s => s.Hash.Equals(hash) ).FirstOrDefault();
 
 		}
 
 		public SlimUrl GetByFullUrl(string fullUrl)
 		{
-			// db.Get<SlimUrl>(s => s.FullUrl.Equals(fullUrl));
 			return db.Table<SlimUrl>().Where( s => s.FullUrl.Equals(fullUrl) ).FirstOrDefault();
 		}
 
@@ -37,9 +34,11 @@ namespace Slim.Repositories
 			return db.Table<SlimUrl>().OrderByDescending(s => s.Id);
 		}
 
-		public void IncrementCount(string hash)
+		public void IncrementCount(SlimUrl s)
 		{
-			db.Execute("UPDATE SlimUrl SET Count = (Count + 1) WHERE Hash = ?", hash);
+			// Increment object and db separately
+			s.Count++;
+			db.Execute("UPDATE SlimUrl SET Count = (Count + 1) WHERE Hash = ?", s.Hash);
 		}
 	}
 }

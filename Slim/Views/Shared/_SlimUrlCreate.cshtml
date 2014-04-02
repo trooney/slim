@@ -2,8 +2,11 @@
 
 @using ( Html.BeginForm("IndexSubmit", "Frontend", FormMethod.Post, new { @class = "slim-create-form" }) ) {
 	<ul>
-		<li class="field">
-			@Html.TextBoxFor(Model => Model.FullUrl, new {@class="input full", @placeholder="enter a url"})
+		<li class="append field">
+			@Html.TextBoxFor(Model => Model.FullUrl, new {@class="wide text input", @placeholder="enter a url"})
+			<div class="medium primary btn"><input type="submit" value="Slim it!" /></div>
 		</li>
 	</ul>
 }
+
+

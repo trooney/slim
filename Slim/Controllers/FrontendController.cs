@@ -19,10 +19,13 @@ namespace Slim.Controllers
 
 		protected SlimActivityService activityService;
 
+		protected SlimGeoLogService geoService;
+
 		public FrontendController(DependencyManager dm)
 		{
 			this.urlService = dm.GetService<SlimUrlService>();
 			this.activityService = dm.GetService<SlimActivityService>();
+			this.geoService = dm.GetService<SlimGeoLogService>();
 		}
 
 		private HomeViewModel CreateHomeViewModel() {
@@ -38,6 +41,12 @@ namespace Slim.Controllers
 		{
 			ViewData ["Message"] = "Index";
 
+			string ip = IpResolver.GetClientIpAddress(Request);
+
+			Console.WriteLine(ip);
+			Console.WriteLine(geoService.GetGeoIp("199.172.214.208"));
+			Console.WriteLine(geoService.GetGeoIp(ip));
+
 			return View (CreateHomeViewModel());
 		}
 
@@ -50,10 +59,19 @@ namespace Slim.Controllers
 				SlimUrl s = urlService.GetByFullUrl(slimView.FullUrl);
 
 				if (s == null) {
+					// here i use the service to create and object then save it
 					s = urlService.Create();
 					s.FullUrl = slimView.FullUrl;
 					urlService.Save(s);
-					urlService.LogCreate(s);
+					// here i use LogCreate to create a log and save it
+					activityService.LogCreate(s);
+
+					// Notes
+					// I should probably pull all the creation methods
+					// out into the controller. then i'll have a bunch of instantiation
+					// and method calls. These calls should be refactored out into some
+					// kind of over-arching SlimServer that handles communication
+					// between all the sub services
 				}
 
 				return RedirectToAction("Index");
@@ -68,16 +86,12 @@ namespace Slim.Controllers
 			SlimUrl s = urlService.GetByHash(hash);
 
 			if (s == null) {
-//				throw new HttpException(404, "Not found");
 				Response.StatusCode = 404;
 				return View("NotFound");
-
-//				Response.StatusCode = 400;
-//				Response.TrySkipIisCustomErrors = true;
-//				return HttpNotFound();
 			}
 
-			urlService.LogRedirect(s);
+			urlService.IncrementCount(s);
+			activityService.LogRedirect(s);
 
 			return View(s);
 		}

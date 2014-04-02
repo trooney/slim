@@ -33,7 +33,7 @@ namespace Slim.Services
 		public void LogCreate(SlimUrl s)
 		{
 			var a = Create();
-			a.Action = SlimActivity.WasCreated;
+			a.ActivityType = (int)SlimActivity.ActivityTypes.Created;
 			a.SlimId = s.Id;
 
 			Save(a);
@@ -42,7 +42,7 @@ namespace Slim.Services
 		public void LogRedirect(SlimUrl s)
 		{
 			var a = Create();
-			a.Action = SlimActivity.WasRedirected;
+			a.ActivityType = (int)SlimActivity.ActivityTypes.Redirected;
 			a.SlimId = s.Id;
 
 			Save(a);
