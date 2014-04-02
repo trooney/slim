@@ -9,7 +9,7 @@ using Slim.Repositories;
 namespace Slim.Services
 {
 	// Geodata courtesty freegeoip.net
-	public class SlimGeoLogService : Service
+	public class SlimGeoLogService
 	{
 		protected SlimGeoLogRepository repository;
 		protected string BaseUrl = "http://freegeoip.net";
@@ -23,10 +23,6 @@ namespace Slim.Services
 
 		public void Save(SlimGeoLog g)
 		{
-			if (g.Id == 0) {
-				g.CreatedDate = DateTime.Now;
-			}
-
 			repository.Save(g);
 		}
 			
@@ -35,9 +31,7 @@ namespace Slim.Services
 			// Don't lookup localhost
 			if (ip == LocalhostIp) {
 				return new SlimGeoLog { 
-					Ip = LocalhostIp, 
-					CountryCode = "RD", 
-					CountryName = "Reserved" 
+					Ip = LocalhostIp
 				};
 			}
 

@@ -104,14 +104,13 @@
     <Compile Include="Components\ShortUrl.cs" />
     <Compile Include="Components\ControllerFactory.cs" />
     <Compile Include="Services\SlimActivityService.cs" />
-    <Compile Include="Services\Service.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Components\IpResolver.cs" />
     <Compile Include="Models\SlimGeoLog.cs" />
     <Compile Include="Services\SlimGeoLogService.cs" />
     <Compile Include="Repositories\SlimGeoLogRepository.cs" />
-    <Compile Include="Models\SlimModel.cs" />
     <Compile Include="TinyIoC.cs" />
+    <Compile Include="Models\IModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Web.config" />

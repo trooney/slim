@@ -3,15 +3,26 @@ using SQLite;
 
 namespace Slim.Models
 {
-	public class SlimActivity : SlimModel
+	public enum ActivityTypes { 
+		Unknown = 0, 
+		Created = 1, 
+		Recreated = 2,
+		Redirected = 3
+	}
+
+	public class SlimActivity : IModel
 	{
-		public enum ActivityTypes { Unknown, Created, Recreated, Redirected }
+		[PrimaryKey, AutoIncrement]
+		public int? Id { get; set; }
+		public ActivityTypes Activity { get; set; }
+		public DateTime? CreatedDate { get; set; }
+		public int? SlimId { get; set; }
 
-		public int SlimId { get; set; }
+		public SlimActivity()
+		{
+			CreatedDate = DateTime.Now;
+		}
 
-		public int ActivityType { get; set; }
-
-		public DateTime CreatedDate { get; set; }
 	}
 }
 

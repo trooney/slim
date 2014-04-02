@@ -1,10 +1,18 @@
 ﻿using System;
 
+using SQLite;
+
 namespace Slim.Models
 {
-	public class SlimGeoLog : SlimModel
+	public class SlimGeoLog : IModel
 	{
-		public int SlimActivityId { get; set; }
+		public readonly string DefaultIp = "0.0.0.0";
+		public readonly string DefaultCountryCode = "RD";
+		public readonly string DefaultCountryName = "Reserved";
+
+		[PrimaryKey, AutoIncrement]
+		public int? Id { get; set; }
+		public int? SlimActivityId { get; set; }
 		public string Ip { get; set; }
 		public string CountryCode { get; set; }
 		public string CountryName { get; set; }
@@ -13,7 +21,14 @@ namespace Slim.Models
 		public string Zipcode { get; set; }
 		public string Latitude { get; set; }
 		public string Longitude { get; set; }
-		public DateTime CreatedDate { get; set; }
+		public DateTime? CreatedDate { get; set; }
+
+		public SlimGeoLog() {
+			Ip = DefaultIp;
+			CountryCode = DefaultCountryCode;
+			CountryName = DefaultCountryName;
+			CreatedDate = DateTime.Now;
+		}
 
 		public override string ToString ()
 		{

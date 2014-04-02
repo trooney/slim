@@ -7,7 +7,7 @@ using Slim.Repositories;
 
 namespace Slim.Services
 {
-	public class SlimActivityService : Service
+	public class SlimActivityService
 	{
 		protected SlimActivityRepository repository;
 
@@ -23,17 +23,13 @@ namespace Slim.Services
 
 		public void Save(SlimActivity a)
 		{
-			if (a.Id == 0) {
-				a.CreatedDate = DateTime.Now;
-			}
-
 			repository.Save(a);
 		}
 
 		public void LogCreate(SlimUrl s)
 		{
 			var a = Create();
-			a.ActivityType = (int)SlimActivity.ActivityTypes.Created;
+			a.Activity = ActivityTypes.Created;
 			a.SlimId = s.Id;
 
 			Save(a);
@@ -42,7 +38,7 @@ namespace Slim.Services
 		public void LogRedirect(SlimUrl s)
 		{
 			var a = Create();
-			a.ActivityType = (int)SlimActivity.ActivityTypes.Redirected;
+			a.Activity = ActivityTypes.Redirected;
 			a.SlimId = s.Id;
 
 			Save(a);

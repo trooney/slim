@@ -8,7 +8,7 @@ using Slim.Repositories;
 
 namespace Slim.Services
 {
-	public class SlimUrlService : Service
+	public class SlimUrlService
 	{
 		protected SlimUrlRepository repository;
 
@@ -31,9 +31,8 @@ namespace Slim.Services
 		public SlimUrl Save(SlimUrl s) {
 		
 			// New URLs need a unique hash
-			if (s.Id == 0) {
+			if (s.Id == null) {
 				s.Hash = GetUniqueHash();
-				s.CreatedDate = DateTime.Now;
 			}	
 
 			repository.Save(s);

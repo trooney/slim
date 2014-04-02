@@ -5,15 +5,19 @@ using Slim.Components;
 
 namespace Slim.Models
 {
-	public class SlimUrl : SlimModel
+	public class SlimUrl : IModel
 	{
+		[PrimaryKey, AutoIncrement]
+		public int? Id { get; set; }
 		public string FullUrl { get; set; }
-
 		public string Hash { get; set; }
-
 		public int Count { get; set; }
+		public DateTime? CreatedDate { get; set; }
 
-		public DateTime CreatedDate { get; set; }
+		public SlimUrl()
+		{
+			CreatedDate = DateTime.Now;
+		}
 
 		public static string GenerateRandomHash()
 		{

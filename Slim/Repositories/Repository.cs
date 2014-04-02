@@ -5,7 +5,8 @@ using SQLite;
 
 namespace Slim.Repositories
 {
-	public class Repository<T> where T : SlimModel, new()
+	//public class Repository<T> where T : SlimModel, new()
+	public class Repository<T> where T : IModel, new()
 	{
 		protected SQLiteConnection db;
 
@@ -22,7 +23,7 @@ namespace Slim.Repositories
 
 		public void Save(T entity)
 		{
-			if (entity.Id == 0) {
+			if (entity.Id == null) {
 				db.Insert(entity);
 			} else {
 				db.Update(entity);

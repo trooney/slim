@@ -46,11 +46,11 @@ namespace Slim.Controllers
 		{
 			ViewData ["Message"] = "Index";
 
-//			string ip = IpResolver.GetClientIpAddress(Request);
-//
-//			Console.WriteLine(ip);
-//			Console.WriteLine(geoService.GetGeoIp("199.172.214.208"));
-//			Console.WriteLine(geoService.GetGeoIp(ip));
+			string ip = IpResolver.GetClientIpAddress(Request);
+
+			Console.WriteLine(ip);
+			Console.WriteLine(geoService.GetGeoIp("199.172.214.208"));
+			Console.WriteLine(geoService.GetGeoIp(ip));
 
 			return View (CreateHomeViewModel());
 		}
