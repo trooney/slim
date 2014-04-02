@@ -21,11 +21,11 @@ namespace Slim.Controllers
 
 		protected SlimGeoLogService geoService;
 
-		public FrontendController(DependencyManager dm)
+		public FrontendController(SlimUrlService urlService, SlimActivityService activityService, SlimGeoLogService geoService)
 		{
-			this.urlService = dm.GetService<SlimUrlService>();
-			this.activityService = dm.GetService<SlimActivityService>();
-			this.geoService = dm.GetService<SlimGeoLogService>();
+			this.urlService = urlService;
+			this.activityService = activityService;
+			this.geoService = geoService;
 		}
 
 		private HomeViewModel CreateHomeViewModel() {
@@ -37,15 +37,20 @@ namespace Slim.Controllers
 			return vm;
 		}
 
+		public void Tiny()
+		{
+
+		}
+
 		public ActionResult Index ()
 		{
 			ViewData ["Message"] = "Index";
 
-			string ip = IpResolver.GetClientIpAddress(Request);
-
-			Console.WriteLine(ip);
-			Console.WriteLine(geoService.GetGeoIp("199.172.214.208"));
-			Console.WriteLine(geoService.GetGeoIp(ip));
+//			string ip = IpResolver.GetClientIpAddress(Request);
+//
+//			Console.WriteLine(ip);
+//			Console.WriteLine(geoService.GetGeoIp("199.172.214.208"));
+//			Console.WriteLine(geoService.GetGeoIp(ip));
 
 			return View (CreateHomeViewModel());
 		}

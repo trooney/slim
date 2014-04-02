@@ -16,9 +16,9 @@ namespace Slim.Services
 
 		protected string LocalhostIp = "127.0.0.1";
 
-		public SlimGeoLogService(DependencyManager dm) : base(dm)
+		public SlimGeoLogService(SlimGeoLogRepository repository)
 		{
-			repository = dm.GetRepository<SlimGeoLogRepository>();
+			this.repository = repository;
 		}
 
 		public void Save(SlimGeoLog g)

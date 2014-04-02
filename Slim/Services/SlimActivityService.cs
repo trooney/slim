@@ -11,9 +11,9 @@ namespace Slim.Services
 	{
 		protected SlimActivityRepository repository;
 
-		public SlimActivityService (DependencyManager dm) : base(dm)
+		public SlimActivityService (SlimActivityRepository repository)
 		{
-			this.repository = dm.GetRepository<SlimActivityRepository>();
+			this.repository = repository;
 		}
 
 		public SlimActivity Create()

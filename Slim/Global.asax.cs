@@ -9,6 +9,7 @@ using System.Web.Routing;
 
 using SQLite;
 using Slim.Components;
+using TinyIoC;
 
 namespace Slim
 {
@@ -49,15 +50,15 @@ namespace Slim
 			RegisterGlobalFilters (GlobalFilters.Filters);
 			RegisterRoutes (RouteTable.Routes);
 
-			// Slim Factory
-			RegisterControllerFactory ();
-		}
+			// Create container
+			TinyIoCContainer container = TinyIoCContainer.Current;
 
-		private void RegisterControllerFactory ()
-		{
-			DependencyManager manager = GetDependencyManager();
+			// Set database on container
+			SQLiteConnection db = GetDatabase();
+			container.Register<SQLiteConnection>(db);
 
-			IControllerFactory factory = new ControllerFactory(manager);
+			// Create controller factory and in container
+			IControllerFactory factory = new ControllerFactory(container);
 			ControllerBuilder.Current.SetControllerFactory(factory);
 		}
 
@@ -69,13 +70,6 @@ namespace Slim
 			var db = new SQLite.SQLiteConnection(path);
 
 			return db;
-		}
-
-		private DependencyManager GetDependencyManager()
-		{
-			SQLiteConnection db = GetDatabase();
-
-			return new DependencyManager(db);
 		}
 
 	}

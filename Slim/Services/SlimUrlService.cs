@@ -16,11 +16,11 @@ namespace Slim.Services
 
 		protected SlimGeoLogService geoLogService;
 
-		public SlimUrlService (DependencyManager dm) : base(dm)
+		public SlimUrlService (SlimUrlRepository repository, SlimActivityService activityService, SlimGeoLogService geoLogService)
 		{
-			this.repository = dm.GetRepository<SlimUrlRepository>();
-			this.activityService = dm.GetService<SlimActivityService>();
-			this.geoLogService = dm.GetService<SlimGeoLogService>();
+			this.repository = repository;
+			this.activityService = activityService;
+			this.geoLogService = geoLogService;
 		}
 
 		public SlimUrl Create()
