@@ -14,7 +14,7 @@ namespace Slim.Controllers
 		public ActionResult Index ()
 		{
 			var db = new SQLite.SQLiteConnection("App_Data/slim.sqlite");
-			IEnumerable<SlimUrl> records = db.Query<SlimUrl> ("select * from SlimUrl");
+			IEnumerable<ShortUrl> records = db.Query<ShortUrl> ("select * from SlimUrl");
 
 			return Json(records, JsonRequestBehavior.AllowGet);
 		}

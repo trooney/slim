@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace Slim.Components
 {
-	public static class ShortUrl
+	public static class UrlMunger
 	{
 		/// <summary>
 		/// Converts a Base-10 Integer to Base-64.  This will effectively shorten the number of characters used to represent a number > 10.  

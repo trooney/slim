@@ -4,7 +4,7 @@ namespace Slim.ViewModels
 {
 	public class HomeViewModel
 	{
-		public SlimUrlCreateViewModel CreateViewModel { get; set; }
-		public SlimUrlListViewModel ListViewModel { get; set; }
+		public ShortUrlCreateViewModel CreateViewModel { get; set; }
+		public ShortUrlListViewModel ListViewModel { get; set; }
 	}
 }

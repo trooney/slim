@@ -4,8 +4,8 @@ using Slim.Models;
 
 namespace Slim.ViewModels
 {
-	public class SlimUrlListViewModel
+	public class ShortUrlListViewModel
 	{
-		public IEnumerable<SlimUrl> SlimUrls { get; set; }
+		public IEnumerable<ShortUrl> SlimUrls { get; set; }
 	}
 }

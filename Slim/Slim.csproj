@@ -89,28 +89,27 @@
     </Compile>
     <Compile Include="SQLite.cs" />
     <Compile Include="SQLiteAsync.cs" />
-    <Compile Include="Models\SlimUrl.cs" />
     <Compile Include="Controllers\FrontendController.cs" />
     <Compile Include="Controllers\ApiController.cs" />
-    <Compile Include="ViewModels\SlimUrlCreateViewModel.cs" />
     <Compile Include="ValidationAttributes\WebUrlAttribute.cs" />
-    <Compile Include="Repositories\SlimUrlRepository.cs" />
-    <Compile Include="ViewModels\SlimUrlListViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
-    <Compile Include="Services\SlimUrlService.cs" />
-    <Compile Include="Models\SlimActivity.cs" />
-    <Compile Include="Repositories\SlimActivityRepository.cs" />
     <Compile Include="Repositories\Repository.cs" />
-    <Compile Include="Components\ShortUrl.cs" />
     <Compile Include="Components\ControllerFactory.cs" />
-    <Compile Include="Services\SlimActivityService.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Components\IpResolver.cs" />
-    <Compile Include="Models\SlimGeoLog.cs" />
-    <Compile Include="Services\SlimGeoLogService.cs" />
-    <Compile Include="Repositories\SlimGeoLogRepository.cs" />
     <Compile Include="TinyIoC.cs" />
     <Compile Include="Models\IModel.cs" />
+    <Compile Include="Models\ShortUrl.cs" />
+    <Compile Include="Repositories\ShortUrlRepository.cs" />
+    <Compile Include="Models\Tracking.cs" />
+    <Compile Include="Services\TrackingService.cs" />
+    <Compile Include="ViewModels\ShortUrlCreateViewModel.cs" />
+    <Compile Include="ViewModels\ShortUrlListViewModel.cs" />
+    <Compile Include="Services\ShortUrlService.cs" />
+    <Compile Include="Services\GeoIpService.cs" />
+    <Compile Include="Models\GeoIp.cs" />
+    <Compile Include="Components\UrlMunger.cs" />
+    <Compile Include="Repositories\TrackingRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Web.config" />
@@ -121,14 +120,14 @@
     <Content Include="Global.asax" />
     <Content Include="packages.config" />
     <Content Include="Views\Frontend\Index.cshtml" />
-    <Content Include="Views\Shared\_SlimUrlCreate.cshtml" />
-    <Content Include="Views\Shared\_SlimUrlList.cshtml" />
     <Content Include="Views\Frontend\Redirection.cshtml" />
     <Content Include="Views\Shared\Error404.cshtml" />
     <Content Include="Views\Frontend\NotFound.cshtml" />
     <Content Include="Assets\js\slim.js" />
     <Content Include="Assets\css\slim.css" />
     <Content Include="Views\Shared\LayoutPartials\Footer.cshtml" />
+    <Content Include="Views\Shared\_ShortUrlList.cshtml" />
+    <Content Include="Views\Shared\_ShortUrlCreate.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

@@ -15,68 +15,59 @@ namespace Slim.Controllers
 {
 	public class FrontendController : Controller
 	{
-		protected SlimUrlService urlService;
+		protected ShortUrlService shortUrlService;
 
-		protected SlimActivityService activityService;
+		protected TrackingService trackingService;
 
-		protected SlimGeoLogService geoService;
+		protected GeoIpService geoService;
 
-		public FrontendController(SlimUrlService urlService, SlimActivityService activityService, SlimGeoLogService geoService)
+		public FrontendController(ShortUrlService urlService, TrackingService activityService, GeoIpService geoService)
 		{
-			this.urlService = urlService;
-			this.activityService = activityService;
+			this.shortUrlService = urlService;
+			this.trackingService = activityService;
 			this.geoService = geoService;
+		}
+
+		private string GetRequestIp()
+		{
+			return IpResolver.GetClientIpAddress(Request);
 		}
 
 		private HomeViewModel CreateHomeViewModel() {
 			HomeViewModel vm = new HomeViewModel();
-			vm.CreateViewModel = new SlimUrlCreateViewModel();
-			vm.ListViewModel = new SlimUrlListViewModel();
-			vm.ListViewModel.SlimUrls = urlService.GetRecent();
+			vm.CreateViewModel = new ShortUrlCreateViewModel();
+			vm.ListViewModel = new ShortUrlListViewModel();
+			vm.ListViewModel.SlimUrls = shortUrlService.GetRecent();
 
 			return vm;
-		}
-
-		public void Tiny()
-		{
-
 		}
 
 		public ActionResult Index ()
 		{
 			ViewData ["Message"] = "Index";
 
-			string ip = IpResolver.GetClientIpAddress(Request);
-
-			Console.WriteLine(ip);
-			Console.WriteLine(geoService.GetGeoIp("199.172.214.208"));
-			Console.WriteLine(geoService.GetGeoIp(ip));
-
 			return View (CreateHomeViewModel());
 		}
 
 		[HttpPost]
-		public ActionResult IndexSubmit (SlimUrlCreateViewModel slimView)
+		public ActionResult IndexSubmit (ShortUrlCreateViewModel slimView)
 		{
 			ViewData["message"] = !ModelState.IsValid ? "Invalid form" : "Valid form";
 
 			if (ModelState.IsValid) {
-				SlimUrl s = urlService.GetByFullUrl(slimView.FullUrl);
+				ShortUrl s = shortUrlService.GetByFullUrl(slimView.FullUrl);
 
 				if (s == null) {
-					// here i use the service to create and object then save it
-					s = urlService.Create();
+					s = shortUrlService.Create();
 					s.FullUrl = slimView.FullUrl;
-					urlService.Save(s);
-					// here i use LogCreate to create a log and save it
-					activityService.LogCreate(s);
+					shortUrlService.Save(s);
 
-					// Notes
-					// I should probably pull all the creation methods
-					// out into the controller. then i'll have a bunch of instantiation
-					// and method calls. These calls should be refactored out into some
-					// kind of over-arching SlimServer that handles communication
-					// between all the sub services
+					var t = trackingService.CreateCreatedActivity();
+					t.SlimId = s.Id;
+					t.Ip = GetRequestIp();
+					geoService.BindGeoIpData(t, t.Ip);
+					trackingService.Save(t);
+
 				}
 
 				return RedirectToAction("Index");
@@ -88,15 +79,20 @@ namespace Slim.Controllers
 		public ActionResult Redirection (string hash)
 		{
 
-			SlimUrl s = urlService.GetByHash(hash);
+			ShortUrl s = shortUrlService.GetByHash(hash);
 
 			if (s == null) {
 				Response.StatusCode = 404;
 				return View("NotFound");
 			}
 
-			urlService.IncrementCount(s);
-			activityService.LogRedirect(s);
+			shortUrlService.IncrementCount(s);
+
+			var t = trackingService.CreateRedirectActivity();
+			t.SlimId = s.Id;
+			t.Ip = GetRequestIp();
+			geoService.BindGeoIpData(t, t.Ip);
+			trackingService.Save(t);
 
 			return View(s);
 		}

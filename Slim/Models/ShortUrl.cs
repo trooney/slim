@@ -5,7 +5,7 @@ using Slim.Components;
 
 namespace Slim.Models
 {
-	public class SlimUrl : IModel
+	public class ShortUrl : IModel
 	{
 		[PrimaryKey, AutoIncrement]
 		public int? Id { get; set; }
@@ -14,7 +14,7 @@ namespace Slim.Models
 		public int Count { get; set; }
 		public DateTime? CreatedDate { get; set; }
 
-		public SlimUrl()
+		public ShortUrl()
 		{
 			CreatedDate = DateTime.Now;
 		}
@@ -22,12 +22,12 @@ namespace Slim.Models
 		public static string GenerateRandomHash()
 		{
 			int hashId = new Random().Next(100000000,999999999);
-			return ShortUrl.Shrink(hashId);
+			return UrlMunger.Shrink(hashId);
 		}
 
 		public override string ToString ()
 		{
-			return string.Format ("[SlimUrl: Id={0}, FullUrl={1}, Hash={2}, Count={3}, CreatedDate={4}]", Id, FullUrl, Hash, Count, CreatedDate);
+			return string.Format ("[ShortUrl: Id={0}, FullUrl={1}, Hash={2}, Count={3}, CreatedDate={4}]", Id, FullUrl, Hash, Count, CreatedDate);
 		}
 	}
 }

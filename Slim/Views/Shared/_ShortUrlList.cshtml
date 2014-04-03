@@ -1,4 +1,4 @@
-﻿@model Slim.ViewModels.SlimUrlListViewModel
+﻿@model Slim.ViewModels.ShortUrlListViewModel
 
 @helper GetShortUrl(string hash)
 {
@@ -10,6 +10,13 @@
 	@String.Format("{1}{2}r/{3}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"), hash)
 }
 
+<div>
+	<div class="full-url">thestar.ca/something/is/here</div>
+	<div class="host">thestar.ca</div>
+	<div class="short-url">slim-url.com/s/JhLMqR</div>
+	<div class="secondary label">12 Clicks</div>
+	<div class="medium default btn"><a href="#">Copy</a></div>
+</div>
 
 
 <table class="rounded">

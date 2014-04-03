@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Slim.ViewModels
 {
-	public class SlimUrlCreateViewModel
+	public class ShortUrlCreateViewModel
 	{
 		[Required(ErrorMessage = "Enter a URL")]
 		[MinLength(3)]
