@@ -37,6 +37,11 @@ namespace Slim.Services
 
 			var response = (RestResponse<GeoIp>)client.Execute<GeoIp>(request);
 
+			var ar = client.ExecuteAsync(request, r => {
+				Console.WriteLine("this is the async request");
+				Console.WriteLine(r.Content);
+			});
+
 			if (response.ErrorException != null) {
 				return null;
 			}
@@ -60,6 +65,35 @@ namespace Slim.Services
 			t.Zipcode = g.Zipcode;
 			t.Latitude = g.Latitude;
 			t.Longitude = g.Longitude;
+		}
+
+		public static void BindGeoIpData(GeoIp g, Tracking t)
+		{
+			t.Ip = g.Ip;
+			t.CountryCode = g.CountryCode;
+			t.CountryName = g.CountryName;
+			t.RegionName = g.RegionName;
+			t.City = g.City;
+			t.Zipcode = g.Zipcode;
+			t.Latitude = g.Latitude;
+			t.Longitude = g.Longitude;
+		}
+
+		public void BindGeoIpDataUsingAsyncThenSave(TrackingService trackingService, Tracking t, string ip)
+		{
+			var client = CreateGeoIpClient();
+			var request = CreateGeoIpRequest(ip);
+
+			var asyncHandle = client.ExecuteAsync<GeoIp>(request, response => {
+				Console.WriteLine("ASYNC REQUEST COMPLETED");
+				if (response.Data == null) {
+					return;
+				}
+				GeoIpService.BindGeoIpData(response.Data, t);
+
+				Console.WriteLine("SAVE COMPLETED");
+				trackingService.Save(t);
+			});
 		}
 	}
 }

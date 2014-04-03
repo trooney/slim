@@ -11,6 +11,8 @@ using Slim.Components;
 using Slim.Services;
 using Slim.Repositories;
 
+using System.Threading.Tasks;
+
 namespace Slim.Controllers
 {
 	public class FrontendController : Controller
@@ -49,6 +51,22 @@ namespace Slim.Controllers
 			return View (CreateHomeViewModel());
 		}
 
+//		public async Task<ActionResult> Index ()
+//		{
+//			ViewData ["Message"] = "Index";
+//
+//			string responseFromServer = await FrontendController.GetSomething();
+//
+//			return View (CreateHomeViewModel());
+//		}
+//
+//		public static async Task<string> GetSomething()
+//		{
+//			System.Threading.Thread.Sleep(5000);
+//			Console.WriteLine("Async thing finished");
+//			return "foo";
+//		}
+
 		[HttpPost]
 		public ActionResult IndexSubmit (ShortUrlCreateViewModel slimView)
 		{
@@ -65,8 +83,13 @@ namespace Slim.Controllers
 					var t = trackingService.CreateCreatedActivity();
 					t.SlimId = s.Id;
 					t.Ip = GetRequestIp();
-					geoService.BindGeoIpData(t, t.Ip);
 					trackingService.Save(t);
+
+					// This will perform binding async-like
+					//geoService.BindGeoIpData(t, t.Ip);
+
+					geoService.BindGeoIpDataUsingAsyncThenSave(trackingService, t, t.Ip);
+
 
 				}
 
@@ -91,8 +114,10 @@ namespace Slim.Controllers
 			var t = trackingService.CreateRedirectActivity();
 			t.SlimId = s.Id;
 			t.Ip = GetRequestIp();
-			geoService.BindGeoIpData(t, t.Ip);
+//			geoService.BindGeoIpData(t, t.Ip);
 			trackingService.Save(t);
+
+			geoService.BindGeoIpDataUsingAsyncThenSave(trackingService, t, t.Ip);
 
 			return View(s);
 		}
