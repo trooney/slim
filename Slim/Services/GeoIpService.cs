@@ -37,7 +37,7 @@ namespace Slim.Services
 
 			var response = (RestResponse<GeoIp>)client.Execute<GeoIp>(request);
 
-			var ar = client.ExecuteAsync(request, r => {
+			client.ExecuteAsync(request, r => {
 				Console.WriteLine("this is the async request");
 				Console.WriteLine(r.Content);
 			});
@@ -84,7 +84,7 @@ namespace Slim.Services
 			var client = CreateGeoIpClient();
 			var request = CreateGeoIpRequest(ip);
 
-			var asyncHandle = client.ExecuteAsync<GeoIp>(request, response => {
+			client.ExecuteAsync<GeoIp>(request, response => {
 				Console.WriteLine("ASYNC REQUEST COMPLETED");
 				if (response.Data == null) {
 					return;

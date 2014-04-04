@@ -1,22 +1,5 @@
 ﻿@model Slim.ViewModels.ShortUrlListViewModel
 
-@helper GetShortUrl(string hash)
-{
-	@String.Format("{0}://{1}{2}r/{3}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"), hash)
-}
-
-@helper GetShortUrlFriendly(string hash)
-{
-	@String.Format("{1}{2}r/{3}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"), hash)
-}
-
-<div>
-	<div class="full-url">thestar.ca/something/is/here</div>
-	<div class="host">thestar.ca</div>
-	<div class="short-url">slim-url.com/s/JhLMqR</div>
-	<div class="secondary label">12 Clicks</div>
-	<div class="medium default btn"><a href="#">Copy</a></div>
-</div>
 
 
 <table class="rounded">
@@ -33,10 +16,10 @@
 	@foreach (var slimUrl in Model.SlimUrls) {         
 	<tr class="slim-links">
 		<td>
-			<a href="@GetShortUrl(@slimUrl.Hash)">@slimUrl.Hash</a>
+			<a href="@Html.SlimAbsoluteShortUrl(@slimUrl)">@slimUrl.Hash</a>
 			<span class="copy-trigger">Copy</span>
 		</td>
-		<td>@GetShortUrlFriendly(@slimUrl.Hash)</td>
+		<td>@Html.SlimAbsoluteShortUrl(@slimUrl)</td>
 		<td><div style="max-width: 300px;word-wrap: break-word;">@slimUrl.FullUrl</div></td>
 		<td>@slimUrl.Count</td>
 		<td>@slimUrl.CreatedDate</td>

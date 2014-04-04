@@ -82,6 +82,7 @@
     <Folder Include="Assets\js\" />
     <Folder Include="Assets\css\" />
     <Folder Include="Views\Shared\LayoutPartials\" />
+    <Folder Include="Helpers\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Global.asax.cs">
@@ -110,6 +111,8 @@
     <Compile Include="Models\GeoIp.cs" />
     <Compile Include="Components\UrlMunger.cs" />
     <Compile Include="Repositories\TrackingRepository.cs" />
+    <Compile Include="Helpers\SlimHtmlHelpers.cs" />
+    <Compile Include="Models\IShortUrl.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Web.config" />

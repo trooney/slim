@@ -5,7 +5,7 @@ using Slim.Components;
 
 namespace Slim.Models
 {
-	public class ShortUrl : IModel
+	public class ShortUrl : IShortUrl, IModel
 	{
 		[PrimaryKey, AutoIncrement]
 		public int? Id { get; set; }
