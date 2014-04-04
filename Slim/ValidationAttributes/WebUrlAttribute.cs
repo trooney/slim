@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-
 namespace Slim
 {
 	public class WebUrlAttribute : ValidationAttribute
@@ -23,7 +22,7 @@ namespace Slim
 				return CreateValidationResultError(context);
 			}
 
-			if (uri.Scheme == "http" || uri.Scheme == "https") {
+			if (uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps) {
 				return ValidationResult.Success;
 			}
 
@@ -31,4 +30,3 @@ namespace Slim
 		}
 	}
 }
-

@@ -5,7 +5,6 @@ using SQLite;
 
 namespace Slim.Repositories
 {
-	//public class Repository<T> where T : SlimModel, new()
 	public class Repository<T> where T : IModel, new()
 	{
 		protected SQLiteConnection db;
@@ -17,7 +16,6 @@ namespace Slim.Repositories
 
 		public T GetById(int id)
 		{
-			// db.Get<T>(id);
 			return db.Table<T>().Where( r => r.Id.Equals(id) ).FirstOrDefault();
 		}
 

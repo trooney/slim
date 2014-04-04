@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
@@ -66,7 +65,7 @@ namespace Slim
 
 			// Create controller factory and in container
 			var container = GetContainer();
-			IControllerFactory factory = new ControllerFactory(container);
+			IControllerFactory factory = new TinyIoCControllerFactory(container);
 			ControllerBuilder.Current.SetControllerFactory(factory);
 
 			// Configure AutoMapper

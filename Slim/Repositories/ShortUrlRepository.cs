@@ -21,7 +21,6 @@ namespace Slim.Repositories
 		public ShortUrl GetByHash(string hash)
 		{
 			return db.Table<ShortUrl>().Where( s => s.Hash.Equals(hash) ).FirstOrDefault();
-
 		}
 
 		public ShortUrl GetByFullUrl(string fullUrl)

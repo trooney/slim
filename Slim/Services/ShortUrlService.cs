@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Web;
 
-using Slim.Components;
 using Slim.Models;
 using Slim.Repositories;
 
@@ -12,15 +11,9 @@ namespace Slim.Services
 	{
 		protected ShortUrlRepository repository;
 
-		protected TrackingService activityService;
-
-		protected GeoIpService geoLogService;
-
-		public ShortUrlService (ShortUrlRepository repository, TrackingService activityService, GeoIpService geoLogService)
+		public ShortUrlService (ShortUrlRepository repository)
 		{
 			this.repository = repository;
-			this.activityService = activityService;
-			this.geoLogService = geoLogService;
 		}
 
 		public ShortUrl Create()
@@ -66,17 +59,9 @@ namespace Slim.Services
 			return repository.GetRecent();
 		}
 
-		public void LogCreate(ShortUrl s, HttpRequestBase request)
-		{
-		}
-
 		public void IncrementCount(ShortUrl s)
 		{
 			repository.IncrementCount(s);
-		}
-
-		public void LogRedirect(ShortUrl s, HttpRequestBase request)
-		{
 		}
 
 	}

@@ -102,7 +102,6 @@
     <Compile Include="ValidationAttributes\WebUrlAttribute.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="Repositories\Repository.cs" />
-    <Compile Include="Components\ControllerFactory.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Components\IpResolver.cs" />
     <Compile Include="TinyIoC.cs" />
@@ -118,8 +117,9 @@
     <Compile Include="Models\GeoIp.cs" />
     <Compile Include="Components\UrlMunger.cs" />
     <Compile Include="Repositories\TrackingRepository.cs" />
-    <Compile Include="Helpers\SlimHtmlHelpers.cs" />
     <Compile Include="Models\IShortUrl.cs" />
+    <Compile Include="Components\TinyIoCControllerFactory.cs" />
+    <Compile Include="Helpers\SlimUrlHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Web.config" />

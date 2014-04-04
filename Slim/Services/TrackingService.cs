@@ -39,7 +39,5 @@ namespace Slim.Services
 			return a;
 		}
 
-
 	}
 }
-

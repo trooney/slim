@@ -1,38 +1,32 @@
 ﻿using System;
 using System.Reflection;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Configuration;
+using System.Web.Routing;
 using System.Web.Mvc;
 using System.Web.SessionState;
 
-using Slim.Controllers;
-using Slim.Services;
 using TinyIoC;
 
 namespace Slim.Components
 {
-	public class ControllerFactory : IControllerFactory
+	public class TinyIoCControllerFactory : IControllerFactory
 	{
 		private TinyIoCContainer container;
 
-		public ControllerFactory(TinyIoCContainer container)
+		public TinyIoCControllerFactory(TinyIoCContainer container)
 		{
 			this.container = container;
 		}
 
-		public IController CreateController(System.Web.Routing.RequestContext requestContext, string controllerName)
+		public IController CreateController(RequestContext requestContext, string controllerName)
 		{
 			string className = string.Concat("Slim.Controllers.", controllerName, "Controller");
 
 			Type type = Assembly.GetExecutingAssembly().GetType(className, false);
 
-			// Create controller
 			return (IController)container.Resolve(type);
 		}
 
-		public System.Web.SessionState.SessionStateBehavior GetControllerSessionBehavior(System.Web.Routing.RequestContext requestContext, string controllerName)
+		public System.Web.SessionState.SessionStateBehavior GetControllerSessionBehavior(RequestContext requestContext, string controllerName)
 		{
 			return SessionStateBehavior.Default;
 		}
@@ -47,4 +41,3 @@ namespace Slim.Components
 
 	}
 }
-

@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Mvc.Ajax;
 
-using TinyIoC;
 using AutoMapper;
 using Slim.Models;
 using Slim.ViewModels;
@@ -94,4 +90,3 @@ namespace Slim.Controllers
 
 	}
 }
-

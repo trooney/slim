@@ -3,10 +3,7 @@
 using RestSharp;
 using AutoMapper;
 
-using Slim.Components;
 using Slim.Models;
-using Slim.Repositories;
-
 
 namespace Slim.Services
 {

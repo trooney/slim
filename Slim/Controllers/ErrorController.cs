@@ -1,7 +1,4 @@
 ﻿using System;
-using System.IO;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
@@ -11,16 +8,9 @@ namespace Slim.Controllers
 {
     public class ErrorController : Controller
     {
-		// @NOTE ErrorController will never accept any parameters
-		public ErrorController()
-		{
-		}
-
+	
 		private void RenderView(string name)
 		{
-//			string path = Path.Combine("~", "Views", "Error", name + ".cshtml");
-//
-//			// Output the view ourselves
 			View(name).ExecuteResult(ControllerContext);
 		}
 
