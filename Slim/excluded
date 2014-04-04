@@ -1,2 +1,3 @@
 SQLite.cs
 SQLiteAsync.cs
+TinyIoC.cs
