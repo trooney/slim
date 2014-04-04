@@ -7,11 +7,8 @@ using System.Web.Mvc.Ajax;
 
 using Slim.Models;
 using Slim.ViewModels;
-using Slim.Components;
 using Slim.Services;
-using Slim.Repositories;
-
-using System.Threading.Tasks;
+using Slim.Components;
 
 namespace Slim.Controllers
 {
@@ -30,16 +27,15 @@ namespace Slim.Controllers
 			this.geoService = geoService;
 		}
 
-		private string GetRequestIp()
-		{
-			return IpResolver.GetClientIpAddress(Request);
-		}
-
 		private HomeViewModel CreateHomeViewModel() {
+
 			HomeViewModel vm = new HomeViewModel();
+
 			vm.CreateViewModel = new ShortUrlCreateViewModel();
-			vm.ListViewModel = new ShortUrlListViewModel();
-			vm.ListViewModel.SlimUrls = shortUrlService.GetRecent();
+
+			vm.ListViewModel = new ShortUrlListViewModel {
+				SlimUrls = shortUrlService.GetRecent()
+			};
 
 			return vm;
 		}
@@ -49,11 +45,9 @@ namespace Slim.Controllers
 			return View (CreateHomeViewModel());
 		}
 
-
-		[HttpPost]
 		public ActionResult Shorten (ShortUrlCreateViewModel slimView)
 		{
-			if (ModelState.IsValid) {
+			if (Request.HttpMethod == "POST" && ModelState.IsValid) {
 				ShortUrl s = shortUrlService.GetByFullUrl(slimView.FullUrl);
 
 				if (s == null) {
@@ -63,7 +57,7 @@ namespace Slim.Controllers
 
 					var t = trackingService.CreateCreatedActivity();
 					t.SlimId = s.Id;
-					t.Ip = GetRequestIp();
+					t.Ip = IpResolver.GetClientIpAddress(Request);
 					trackingService.Save(t);
 
 					geoService.BindGeoIpDataUsingAsyncThenSave(trackingService, t, t.Ip);
@@ -88,7 +82,7 @@ namespace Slim.Controllers
 
 			var t = trackingService.CreateRedirectActivity();
 			t.SlimId = s.Id;
-			t.Ip = GetRequestIp();
+			t.Ip = IpResolver.GetClientIpAddress(Request);
 			trackingService.Save(t);
 
 			geoService.BindGeoIpDataUsingAsyncThenSave(trackingService, t, t.Ip);

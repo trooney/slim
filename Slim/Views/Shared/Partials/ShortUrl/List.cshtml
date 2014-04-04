@@ -1,9 +1,5 @@
 ﻿@model Slim.ViewModels.ShortUrlListViewModel
 
-<div class="short-list-header">
-	<div class="heading">Links we've recently shortened</div>
-</div>
-
 <div class="short-list">
 @foreach (var slimUrl in Model.SlimUrls) {
 	<div class="short-item">

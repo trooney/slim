@@ -1,11 +1,21 @@
 ﻿@model Slim.ViewModels.HomeViewModel
 
-@if (!ViewData.ModelState.IsValid) {
-	<div class="warning alert">Oops! We couldn't create a slim link for your URL. Try again with a full URL.</div>
+@if (Request.HttpMethod == "POST" && !ViewData.ModelState.IsValid) {
+	@section Alerts {
+		<div class="warning alert">Oops! We couldn't create a slim link for your URL. Try again with a full URL.</div>
+	}
 }
 
 <div class="slim-create-form-container">
 	@Html.Partial("~/Views/Shared/Partials/ShortUrl/Create.cshtml", Model.CreateViewModel)
+</div>
+
+<div class="short-list-header">
+	<div class="heading">Here's your new slim link!</div>
+</div>
+
+<div class="short-list-header">
+	<div class="heading">Links we've recently slimmed</div>
 </div>
 
 @Html.Partial("~/Views/Shared/Partials/ShortUrl/List.cshtml", Model.ListViewModel)

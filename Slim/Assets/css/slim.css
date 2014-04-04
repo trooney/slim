@@ -115,6 +115,10 @@
 	font-size:10px;
 }
 
+.slim-alerts .alert {
+	text-align: center;
+}
+
 
 /* Form, when in page */
 .slim-create-form-container {
