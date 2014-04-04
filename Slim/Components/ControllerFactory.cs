@@ -11,7 +11,6 @@ using Slim.Controllers;
 using Slim.Services;
 using TinyIoC;
 
-
 namespace Slim.Components
 {
 	public class ControllerFactory : IControllerFactory
@@ -29,6 +28,7 @@ namespace Slim.Components
 
 			Type type = Assembly.GetExecutingAssembly().GetType(className, false);
 
+			// Create controller
 			return (IController)container.Resolve(type);
 		}
 

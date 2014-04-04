@@ -1,10 +1,12 @@
 ﻿using System;
 
 using RestSharp;
+using AutoMapper;
 
 using Slim.Components;
 using Slim.Models;
 using Slim.Repositories;
+
 
 namespace Slim.Services
 {
@@ -30,71 +32,24 @@ namespace Slim.Services
 			return request;
 		}
 
-		public GeoIp GetGeoIp(string ip)
+		// Looks up GeoData service using t.Ip
+		// Then maps the response back onto t
+		public void GetGeoIpAsync(Tracking t, Action<Tracking> successCallback)
 		{
 			var client = CreateGeoIpClient();
-			var request = CreateGeoIpRequest(ip);
-
-			var response = (RestResponse<GeoIp>)client.Execute<GeoIp>(request);
-
-			client.ExecuteAsync(request, r => {
-				Console.WriteLine("this is the async request");
-				Console.WriteLine(r.Content);
-			});
-
-			if (response.ErrorException != null) {
-				return null;
-			}
-
-			return response.Data;
-		}
-
-		public void BindGeoIpData(Tracking t, string ip)
-		{
-			GeoIp g = GetGeoIp(ip);
-
-			if (g == null) {
-				return;
-			}
-
-			t.Ip = g.Ip;
-			t.CountryCode = g.CountryCode;
-			t.CountryName = g.CountryName;
-			t.RegionName = g.RegionName;
-			t.City = g.City;
-			t.Zipcode = g.Zipcode;
-			t.Latitude = g.Latitude;
-			t.Longitude = g.Longitude;
-		}
-
-		public static void BindGeoIpData(GeoIp g, Tracking t)
-		{
-			t.Ip = g.Ip;
-			t.CountryCode = g.CountryCode;
-			t.CountryName = g.CountryName;
-			t.RegionName = g.RegionName;
-			t.City = g.City;
-			t.Zipcode = g.Zipcode;
-			t.Latitude = g.Latitude;
-			t.Longitude = g.Longitude;
-		}
-
-		public void BindGeoIpDataUsingAsyncThenSave(TrackingService trackingService, Tracking t, string ip)
-		{
-			var client = CreateGeoIpClient();
-			var request = CreateGeoIpRequest(ip);
+			var request = CreateGeoIpRequest(t.Ip);
 
 			client.ExecuteAsync<GeoIp>(request, response => {
-				Console.WriteLine("ASYNC REQUEST COMPLETED");
 				if (response.Data == null) {
 					return;
 				}
-				GeoIpService.BindGeoIpData(response.Data, t);
 
-				Console.WriteLine("SAVE COMPLETED");
-				trackingService.Save(t);
+				Mapper.Map<GeoIp, Tracking>(response.Data, t);
+
+				successCallback(t);
 			});
 		}
+			
 	}
 }
 

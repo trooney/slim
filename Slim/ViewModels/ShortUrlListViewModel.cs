@@ -6,6 +6,6 @@ namespace Slim.ViewModels
 {
 	public class ShortUrlListViewModel
 	{
-		public IEnumerable<ShortUrl> SlimUrls { get; set; }
+		public IEnumerable<ShortUrl> ShortUrls { get; set; }
 	}
 }

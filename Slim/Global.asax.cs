@@ -8,8 +8,9 @@ using System.Web.Mvc;
 using System.Web.Routing;
 
 using SQLite;
-using Slim.Components;
 using TinyIoC;
+using AutoMapper;
+using Slim.Components;
 
 namespace Slim
 {
@@ -62,16 +63,14 @@ namespace Slim
 			RegisterGlobalFilters (GlobalFilters.Filters);
 			RegisterRoutes (RouteTable.Routes);
 
-			// Create container
-			TinyIoCContainer container = TinyIoCContainer.Current;
-
-			// Set database on container
-			SQLiteConnection db = GetDatabase();
-			container.Register<SQLiteConnection>(db);
 
 			// Create controller factory and in container
+			var container = GetContainer();
 			IControllerFactory factory = new ControllerFactory(container);
 			ControllerBuilder.Current.SetControllerFactory(factory);
+
+			// Configure AutoMapper
+			SetupAutomapper();
 		}
 
 		private SQLiteConnection GetDatabase()
@@ -82,6 +81,23 @@ namespace Slim
 			var db = new SQLite.SQLiteConnection(path);
 
 			return db;
+		}
+			
+
+		private TinyIoCContainer GetContainer()
+		{
+			TinyIoCContainer container = TinyIoCContainer.Current;
+
+			// Set database on container
+			SQLiteConnection db = GetDatabase();
+			container.Register<SQLiteConnection>(db);
+
+			return container;
+		}
+
+		private void SetupAutomapper()
+		{
+			Mapper.CreateMap<Slim.Models.GeoIp, Slim.Models.Tracking>();
 		}
 
 	}

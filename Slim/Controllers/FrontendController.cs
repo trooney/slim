@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Ajax;
 
+using TinyIoC;
+using AutoMapper;
 using Slim.Models;
 using Slim.ViewModels;
 using Slim.Services;
@@ -28,20 +30,16 @@ namespace Slim.Controllers
 		}
 
 		private HomeViewModel CreateHomeViewModel() {
-
 			HomeViewModel vm = new HomeViewModel();
 
-			vm.CreateViewModel = new ShortUrlCreateViewModel();
-
-			vm.ListViewModel = new ShortUrlListViewModel {
-				SlimUrls = shortUrlService.GetRecent()
-			};
+			vm.ListViewModel.ShortUrls = shortUrlService.GetRecent();
 
 			return vm;
 		}
 
 		public ActionResult Home ()
 		{
+
 			return View (CreateHomeViewModel());
 		}
 
@@ -60,7 +58,9 @@ namespace Slim.Controllers
 					t.Ip = IpResolver.GetClientIpAddress(Request);
 					trackingService.Save(t);
 
-					geoService.BindGeoIpDataUsingAsyncThenSave(trackingService, t, t.Ip);
+					geoService.GetGeoIpAsync(t, ((Tracking updated) => {
+						trackingService.Save(updated);
+					}));
 				}
 
 				return RedirectToAction("Shorten");
@@ -85,7 +85,9 @@ namespace Slim.Controllers
 			t.Ip = IpResolver.GetClientIpAddress(Request);
 			trackingService.Save(t);
 
-			geoService.BindGeoIpDataUsingAsyncThenSave(trackingService, t, t.Ip);
+			geoService.GetGeoIpAsync(t, ((Tracking updated) => {
+				trackingService.Save(updated);
+			}));
 
 			return View(s);
 		}

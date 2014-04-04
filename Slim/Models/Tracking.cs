@@ -39,6 +39,11 @@ namespace Slim.Models
 			CreatedDate = DateTime.Now;
 		}
 
+		public override string ToString ()
+		{
+			return string.Format ("[Tracking: Id={0}, SlimId={1}, Activity={2}, Ip={3}, CountryCode={4}, CountryName={5}, RegionName={6}, City={7}, Zipcode={8}, Latitude={9}, Longitude={10}, CreatedDate={11}]", Id, SlimId, Activity, Ip, CountryCode, CountryName, RegionName, City, Zipcode, Latitude, Longitude, CreatedDate);
+		}
+
 	}
 }
 
