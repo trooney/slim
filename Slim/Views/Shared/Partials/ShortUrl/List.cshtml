@@ -1,0 +1,29 @@
+﻿@model Slim.ViewModels.ShortUrlListViewModel
+
+<div class="short-list-header">
+	<div class="heading">Links we've recently shortened</div>
+</div>
+
+<div class="short-list">
+@foreach (var slimUrl in Model.SlimUrls) {
+	<div class="short-item">
+		<div class="link-icon">
+			<i class="fa fa-link "></i>
+		</div>
+		<div class="full-url">
+			<a href="@Html.SlimAbsoluteShortUrl(@slimUrl)">@slimUrl.FullUrl</a>
+		</div>
+		<div class="host">@Html.SlimHostnameForUrl(@slimUrl.FullUrl)</div>
+		<div class="short-url">
+			<a href="@Html.SlimAbsoluteShortUrl(@slimUrl)">@Html.SlimFriendlyShortUrl(@slimUrl)</a>
+		</div>
+		<div class="stats">
+			<a href="#">
+				<span class="click-count secondary label">@slimUrl.Count Clicks</span>
+				<span class="stats-link"><i class="fa fa-tachometer"></i> View analytics</span>
+			</a>
+		</div>
+		<a class="copy-btn" href="@Html.SlimAbsoluteShortUrl(@slimUrl)"><span>Copy</span></a>
+	</div>
+}
+</div>

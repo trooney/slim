@@ -44,34 +44,15 @@ namespace Slim.Controllers
 			return vm;
 		}
 
-		public ActionResult Index ()
+		public ActionResult Home ()
 		{
-			ViewData ["Message"] = "Index";
-
 			return View (CreateHomeViewModel());
 		}
 
-//		public async Task<ActionResult> Index ()
-//		{
-//			ViewData ["Message"] = "Index";
-//
-//			string responseFromServer = await FrontendController.GetSomething();
-//
-//			return View (CreateHomeViewModel());
-//		}
-//
-//		public static async Task<string> GetSomething()
-//		{
-//			System.Threading.Thread.Sleep(5000);
-//			Console.WriteLine("Async thing finished");
-//			return "foo";
-//		}
 
 		[HttpPost]
-		public ActionResult IndexSubmit (ShortUrlCreateViewModel slimView)
+		public ActionResult Shorten (ShortUrlCreateViewModel slimView)
 		{
-			ViewData["message"] = !ModelState.IsValid ? "Invalid form" : "Valid form";
-
 			if (ModelState.IsValid) {
 				ShortUrl s = shortUrlService.GetByFullUrl(slimView.FullUrl);
 
@@ -85,23 +66,17 @@ namespace Slim.Controllers
 					t.Ip = GetRequestIp();
 					trackingService.Save(t);
 
-					// This will perform binding async-like
-					//geoService.BindGeoIpData(t, t.Ip);
-
 					geoService.BindGeoIpDataUsingAsyncThenSave(trackingService, t, t.Ip);
-
-
 				}
 
-				return RedirectToAction("Index");
+				return RedirectToAction("Shorten");
 			}
 
-			return View ("Index", CreateHomeViewModel());
+			return View (CreateHomeViewModel());
 		}
 
 		public ActionResult Redirection (string hash)
 		{
-
 			ShortUrl s = shortUrlService.GetByHash(hash);
 
 			if (s == null) {
@@ -114,7 +89,6 @@ namespace Slim.Controllers
 			var t = trackingService.CreateRedirectActivity();
 			t.SlimId = s.Id;
 			t.Ip = GetRequestIp();
-//			geoService.BindGeoIpData(t, t.Ip);
 			trackingService.Save(t);
 
 			geoService.BindGeoIpDataUsingAsyncThenSave(trackingService, t, t.Ip);

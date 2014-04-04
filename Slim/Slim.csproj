@@ -81,8 +81,10 @@
     <Folder Include="Assets\" />
     <Folder Include="Assets\js\" />
     <Folder Include="Assets\css\" />
-    <Folder Include="Views\Shared\LayoutPartials\" />
     <Folder Include="Helpers\" />
+    <Folder Include="Assets\img\" />
+    <Folder Include="Views\Shared\Partials\" />
+    <Folder Include="Views\Shared\Partials\ShortUrl\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Global.asax.cs">
@@ -122,15 +124,17 @@
     <Content Include="Web.config" />
     <Content Include="Global.asax" />
     <Content Include="packages.config" />
-    <Content Include="Views\Frontend\Index.cshtml" />
     <Content Include="Views\Frontend\Redirection.cshtml" />
     <Content Include="Views\Shared\Error404.cshtml" />
     <Content Include="Views\Frontend\NotFound.cshtml" />
     <Content Include="Assets\js\slim.js" />
     <Content Include="Assets\css\slim.css" />
-    <Content Include="Views\Shared\LayoutPartials\Footer.cshtml" />
-    <Content Include="Views\Shared\_ShortUrlList.cshtml" />
-    <Content Include="Views\Shared\_ShortUrlCreate.cshtml" />
+    <Content Include="Assets\img\eye.png" />
+    <Content Include="Views\Frontend\Home.cshtml" />
+    <Content Include="Views\Frontend\Shorten.cshtml" />
+    <Content Include="Views\Shared\Partials\Layout\Footer.cshtml" />
+    <Content Include="Views\Shared\Partials\ShortUrl\Create.cshtml" />
+    <Content Include="Views\Shared\Partials\ShortUrl\List.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

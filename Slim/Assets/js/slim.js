@@ -19,15 +19,17 @@ var Alert = (function() {
 
 
 
-$('.slim-links').each(function(i, el) {
+$('.short-list').each(function(i, el) {
 	var $container = $(el)
-	var $trigger = $container.find('.copy-trigger')
-	var url = $container.find('a').attr('href')
+	var $trigger = $container.find('.copy-btn')
+	var url = $trigger.find('span').attr('href')
 
 	$trigger.zclip({
 		path: SWF_PATH,
 		copy: url,
+		setCSSEffects: false,
 		afterCopy: function() {
+			document.body.focus()
 			Alert.notify('Slim URL ' + url + ' was copied to your clipboard', "success")
 		}
 	})

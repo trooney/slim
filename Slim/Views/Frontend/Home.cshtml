@@ -1,0 +1,7 @@
+﻿@model Slim.ViewModels.HomeViewModel
+
+@section BesideLogo {
+	@Html.Partial("~/Views/Shared/Partials/ShortUrl/Create.cshtml", Model.CreateViewModel)
+}
+
+@Html.Partial("~/Views/Shared/Partials/ShortUrl/List.cshtml", Model.ListViewModel)

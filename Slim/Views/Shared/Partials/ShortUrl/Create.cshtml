@@ -1,0 +1,10 @@
+﻿@model Slim.ViewModels.ShortUrlCreateViewModel
+
+@using ( Html.BeginForm("Shorten", "Frontend", FormMethod.Post, new { @class = "slim-create-form" }) ) {
+	<ul>
+		<li class="append field">
+			@Html.TextBoxFor(Model => Model.FullUrl, new {@class="wide text input", @placeholder="paste a link or enter a full url"})
+			<div class="medium primary btn"><input type="submit" value="Slim it!" /></div>
+		</li>
+	</ul>
+}
