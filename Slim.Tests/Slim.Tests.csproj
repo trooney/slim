@@ -71,9 +71,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\UrlMungerTest.cs" />
+    <Compile Include="ValidationAttributes\WebUrlAttributeTest.cs" />
+    <Compile Include="ValidationAttributes\SlimUrlBlockerAttributeTest.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ValidationAttributes\" />
   </ItemGroup>
 </Project>

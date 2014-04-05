@@ -100,7 +100,6 @@
     <Compile Include="Controllers\FrontendController.cs" />
     <Compile Include="Controllers\ApiController.cs" />
     <Compile Include="ValidationAttributes\WebUrlAttribute.cs" />
-    <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="Repositories\Repository.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Components\IpResolver.cs" />
@@ -110,8 +109,6 @@
     <Compile Include="Repositories\ShortUrlRepository.cs" />
     <Compile Include="Models\Tracking.cs" />
     <Compile Include="Services\TrackingService.cs" />
-    <Compile Include="ViewModels\ShortUrlCreateViewModel.cs" />
-    <Compile Include="ViewModels\ShortUrlListViewModel.cs" />
     <Compile Include="Services\ShortUrlService.cs" />
     <Compile Include="Services\GeoIpService.cs" />
     <Compile Include="Models\GeoIp.cs" />
@@ -120,6 +117,11 @@
     <Compile Include="Models\IShortUrl.cs" />
     <Compile Include="Components\TinyIoCControllerFactory.cs" />
     <Compile Include="Helpers\SlimUrlHelper.cs" />
+    <Compile Include="ViewModels\Home.cs" />
+    <Compile Include="ViewModels\ShortUrlCreate.cs" />
+    <Compile Include="ViewModels\Shorten.cs" />
+    <Compile Include="ValidationAttributes\SlimUrlBlockerAttribute.cs" />
+    <Compile Include="ValidationAttributes\AbstractUrlAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Web.config" />

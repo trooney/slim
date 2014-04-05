@@ -1,4 +1,8 @@
-﻿@model Slim.ViewModels.HomeViewModel
+﻿@model Slim.ViewModels.Shorten
+
+@section BesideLogo {
+	@Html.Partial("~/Views/Shared/Partials/ShortUrl/Create.cshtml", Model.NewShortUrl)
+}
 
 @if (Request.HttpMethod == "POST" && !ViewData.ModelState.IsValid) {
 	@section Alerts {
@@ -6,16 +10,15 @@
 	}
 }
 
-<div class="slim-create-form-container">
-	@Html.Partial("~/Views/Shared/Partials/ShortUrl/Create.cshtml", Model.CreateViewModel)
-</div>
-
-<div class="short-list-header">
-	<div class="heading">Here's your new slim link!</div>
-</div>
+@if (Model.LastShortUrls.Count() > 0) {
+	<div class="short-list-header">
+		<div class="heading">Here's your new slim url!</div>
+	</div>
+	@Html.Partial("~/Views/Shared/Partials/ShortUrl/List.cshtml", Model.LastShortUrls)
+}
 
 <div class="short-list-header">
 	<div class="heading">Links we've recently slimmed</div>
 </div>
 
-@Html.Partial("~/Views/Shared/Partials/ShortUrl/List.cshtml", Model.ListViewModel)
+@Html.Partial("~/Views/Shared/Partials/ShortUrl/List.cshtml", Model.RecentShortUrls)

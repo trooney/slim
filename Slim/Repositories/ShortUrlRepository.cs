@@ -9,8 +9,9 @@ namespace Slim.Repositories
 	public class ShortUrlRepository : Repository<ShortUrl>
 	{
 
-		public ShortUrlRepository (SQLiteConnection db) : base(db)
-		{
+		public ShortUrlRepository (SQLiteConnection db)
+		{ 
+			this.db = db;
 		}
 
 		public bool HashExists(string hash)
@@ -30,7 +31,15 @@ namespace Slim.Repositories
 
 		public IEnumerable<ShortUrl> GetRecent()
 		{
-			return db.Table<ShortUrl>().OrderByDescending(s => s.Id);
+			return db.Table<ShortUrl>().OrderByDescending(r => r.Id).Take(5);
+		}
+
+		public IEnumerable<ShortUrl> GetRecentExcluding(int? id)
+		{
+			if (id == null) {
+				return GetRecent();
+			}
+			return db.Table<ShortUrl>().Where( r => r.Id != id).OrderByDescending(r => r.Id).Take(5);
 		}
 
 		public void IncrementCount(ShortUrl s)

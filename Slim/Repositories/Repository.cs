@@ -5,14 +5,14 @@ using SQLite;
 
 namespace Slim.Repositories
 {
-	public class Repository<T> where T : IModel, new()
+	public abstract class Repository<T> where T : IModel, new()
 	{
 		protected SQLiteConnection db;
 
-		public Repository(SQLiteConnection db)
-		{
-			this.db = db;
-		}
+//		public Repository(SQLiteConnection db)
+//		{
+//			this.db = db;
+//		}
 
 		public T GetById(int id)
 		{

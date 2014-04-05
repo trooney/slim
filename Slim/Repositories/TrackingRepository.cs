@@ -7,8 +7,9 @@ namespace Slim.Repositories
 {
 	public class TrackingRepository : Repository<Tracking>
 	{
-		public TrackingRepository (SQLiteConnection db) : base(db)
+		public TrackingRepository (SQLiteConnection db)
 		{
+			this.db = db;
 		}
 
 	}

@@ -3,12 +3,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Slim.ViewModels
 {
-	public class ShortUrlCreateViewModel
+	public class ShortUrlCreate
 	{
 		[Required(ErrorMessage = "Enter a URL")]
 		[MinLength(3)]
 		[MaxLength(2048)]
-		[WebUrl(ErrorMessage = "Enter a full URL")]
+		[WebUrl]
+		[SlimUrlBlocker]
 		public string FullUrl { get; set; }
 	}
 }

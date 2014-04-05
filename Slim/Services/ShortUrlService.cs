@@ -59,6 +59,11 @@ namespace Slim.Services
 			return repository.GetRecent();
 		}
 
+		public IEnumerable<ShortUrl> GetRecentExcluding(ShortUrl s)
+		{
+			return repository.GetRecentExcluding(s.Id);
+		}
+
 		public void IncrementCount(ShortUrl s)
 		{
 			repository.IncrementCount(s);

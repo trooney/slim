@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
 
@@ -25,28 +26,37 @@ namespace Slim.Controllers
 			this.geoService = geoService;
 		}
 
-		private HomeViewModel CreateHomeViewModel() {
-			HomeViewModel vm = new HomeViewModel();
+		private Home CreateHomeViewModel() {
+			Home vm = new Home();
 
-			vm.ListViewModel.ShortUrls = shortUrlService.GetRecent();
+			vm.RecentShortUrls = shortUrlService.GetRecent();
 
 			return vm;
 		}
 
 		public ActionResult Home ()
 		{
+			Home vm = new Home();
 
-			return View (CreateHomeViewModel());
+			vm.RecentShortUrls = shortUrlService.GetRecent();
+
+			return View (vm);
 		}
 
-		public ActionResult Shorten (ShortUrlCreateViewModel slimView)
+		public ActionResult Shorten (ShortUrlCreate shortUrlCreate)
 		{
+			Shorten vm = new Slim.ViewModels.Shorten();
+
 			if (Request.HttpMethod == "POST" && ModelState.IsValid) {
-				ShortUrl s = shortUrlService.GetByFullUrl(slimView.FullUrl);
+
+				// Prevent form value repopulation
+				ModelState.Clear();
+
+				ShortUrl s = shortUrlService.GetByFullUrl(shortUrlCreate.FullUrl);
 
 				if (s == null) {
 					s = shortUrlService.Create();
-					s.FullUrl = slimView.FullUrl;
+					s.FullUrl = shortUrlCreate.FullUrl;
 					shortUrlService.Save(s);
 
 					var t = trackingService.CreateCreatedActivity();
@@ -57,12 +67,18 @@ namespace Slim.Controllers
 					geoService.GetGeoIpAsync(t, ((Tracking updated) => {
 						trackingService.Save(updated);
 					}));
+
 				}
 
-				return RedirectToAction("Shorten");
+				vm.LastShortUrls.Add(s);
+
+				vm.RecentShortUrls = shortUrlService.GetRecentExcluding(s);
+
+			} else {
+				vm.RecentShortUrls = shortUrlService.GetRecent();
 			}
 
-			return View (CreateHomeViewModel());
+			return View (vm);
 		}
 
 		public ActionResult Redirection (string hash)

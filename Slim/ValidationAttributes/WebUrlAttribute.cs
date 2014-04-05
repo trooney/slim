@@ -3,30 +3,36 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Slim
 {
-	public class WebUrlAttribute : ValidationAttribute
+	public class WebUrlAttribute : AbstractUrlAttribute
 	{
-		private ValidationResult CreateValidationResultError(ValidationContext context)
+
+		public override bool IsValid(object value)
 		{
-			return new ValidationResult(this.FormatErrorMessage(context.DisplayName));
+			Uri uri = GetAbsoluteUri((string)value);
+
+			if (uri == null) {
+				return false;
+			}
+
+			// make sure host contains both hostname and tld
+			// i.e., filter out things like "localhost"
+			if (uri.Host.Contains(".") == false) {
+				return false;
+			}
+
+			// only accept http|https
+			if (false == (uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps)) {
+				return false;
+			}
+
+			return true;
 		}
 	
 		protected override ValidationResult IsValid(object value, ValidationContext context)
 		{
-			if (value == null) {
-				return CreateValidationResultError(context);
-			}
-
-			Uri uri;
-				
-			if (Uri.TryCreate(value.ToString(), UriKind.Absolute, out uri) == false) {
-				return CreateValidationResultError(context);
-			}
-
-			if (uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps) {
-				return ValidationResult.Success;
-			}
-
-			return CreateValidationResultError(context);
+			return IsValid(value) 
+				? ValidationResult.Success 
+				: new ValidationResult(this.FormatErrorMessage(context.DisplayName));
 		}
 	}
 }
