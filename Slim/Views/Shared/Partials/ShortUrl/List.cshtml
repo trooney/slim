@@ -14,16 +14,13 @@
 			<a href="@Html.SlimAbsoluteShortUrl(@shortUrl)">@Html.SlimFriendlyShortUrl(@shortUrl)</a>
 		</div>
 		<div class="stats">
-			<a href="#">
+			<a href="#" class="usage-trigger">
 				<span class="click-count secondary label">@shortUrl.Count Clicks</span>
-				<span class="stats-link"><i class="fa fa-tachometer"></i> View analytics</span>
+				<span><i class="fa fa-tachometer"></i> View analytics</span>
 			</a>
 		</div>
 		<a class="copy-btn" href="@Html.SlimAbsoluteShortUrl(@shortUrl)"><span>Copy</span></a>
-		<div class="short-usage-container">
-			<h5>Usage</h5>
-
-		</div>
+		<div class="usage-container"></div>
 	</div>
 }
 </div>

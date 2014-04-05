@@ -94,6 +94,45 @@
 	background:#5b9ede;
 }
 
+/* Usage */
+.loader {
+	padding:18px;
+	text-align: center;
+}
+.usage-container:empty {
+	display:none;
+}
+.usage-container {
+	margin:18px 0;
+	padding:9px 18px 18px 18px;
+	background:rgb(245,245,245);
+}
+.usage-heading {
+	padding-bottom:9px;
+	margin-bottom:18px;
+	border-bottom:1px solid #ccc;
+	text-align:center;
+}
+.usage-list {
+	width:100%;
+	columns: 2;
+	-moz-columns: 2;
+	-webkit-columns: 2;
+}
+.usage-item {
+	padding-top:9px;
+	padding-bottom:9px;
+}
+.usage-item .count {
+	margin-right:4px;
+}
+.usage-item .city,
+.usage-item .country {
+	font-weight:bold;
+}
+.usage-item .city:after {
+	content:", ";
+}
 
 /* Layout */
 .logo {
