@@ -17,8 +17,10 @@
 	@Html.Partial("~/Views/Shared/Partials/ShortUrl/List.cshtml", Model.LastShortUrls)
 }
 
-<div class="short-list-header">
-	<div class="heading">Links we've recently slimmed</div>
-</div>
+@if (Model.RecentShortUrls.Count() > 0) {
+	<div class="short-list-header">
+		<div class="heading">Links we've recently slimmed</div>
+	</div>
 
-@Html.Partial("~/Views/Shared/Partials/ShortUrl/List.cshtml", Model.RecentShortUrls)
+	@Html.Partial("~/Views/Shared/Partials/ShortUrl/List.cshtml", Model.RecentShortUrls)
+}

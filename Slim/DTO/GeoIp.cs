@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Slim.Models
+namespace Slim.DTO
 {
 	public class GeoIp
 	{
@@ -10,7 +10,7 @@ namespace Slim.Models
 		public string RegionName { get; set; }
 		public string City { get; set; }
 		public string Zipcode { get; set; }
-		public double? Latitude { get; set; }
-		public double? Longitude { get; set; }
+		public double Latitude { get; set; }
+		public double Longitude { get; set; }
 	}
 }

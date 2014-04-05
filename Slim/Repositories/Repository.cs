@@ -9,11 +9,6 @@ namespace Slim.Repositories
 	{
 		protected SQLiteConnection db;
 
-//		public Repository(SQLiteConnection db)
-//		{
-//			this.db = db;
-//		}
-
 		public T GetById(int id)
 		{
 			return db.Table<T>().Where( r => r.Id.Equals(id) ).FirstOrDefault();

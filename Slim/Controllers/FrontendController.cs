@@ -9,29 +9,28 @@ using Slim.ViewModels;
 using Slim.Services;
 using Slim.Components;
 
+// tmp
+using Slim.Repositories;
+
 namespace Slim.Controllers
 {
 	public class FrontendController : Controller
 	{
 		protected ShortUrlService shortUrlService;
 
-		protected TrackingService trackingService;
+		protected DocketService docketService;
 
 		protected GeoIpService geoService;
 
-		public FrontendController(ShortUrlService urlService, TrackingService activityService, GeoIpService geoService)
+		public DocketRepository t;
+
+		public FrontendController(ShortUrlService urlService, DocketService docketService, GeoIpService geoService, DocketRepository t)
 		{
 			this.shortUrlService = urlService;
-			this.trackingService = activityService;
+			this.docketService = docketService;
 			this.geoService = geoService;
-		}
 
-		private Home CreateHomeViewModel() {
-			Home vm = new Home();
-
-			vm.RecentShortUrls = shortUrlService.GetRecent();
-
-			return vm;
+			this.t = t;
 		}
 
 		public ActionResult Home ()
@@ -59,13 +58,13 @@ namespace Slim.Controllers
 					s.FullUrl = shortUrlCreate.FullUrl;
 					shortUrlService.Save(s);
 
-					var t = trackingService.CreateCreatedActivity();
-					t.SlimId = s.Id;
+					var t = docketService.CreateCreatedActivity();
+					t.ShortUrlId = s.Id;
 					t.Ip = IpResolver.GetClientIpAddress(Request);
-					trackingService.Save(t);
+					docketService.Save(t);
 
-					geoService.GetGeoIpAsync(t, ((Tracking updated) => {
-						trackingService.Save(updated);
+					geoService.GetGeoIpAsync(t, ((Docket updated) => {
+						docketService.Save(updated);
 					}));
 
 				}
@@ -92,13 +91,13 @@ namespace Slim.Controllers
 
 			shortUrlService.IncrementCount(s);
 
-			var t = trackingService.CreateRedirectActivity();
-			t.SlimId = s.Id;
+			var t = docketService.CreateRedirectActivity();
+			t.ShortUrlId = s.Id;
 			t.Ip = IpResolver.GetClientIpAddress(Request);
-			trackingService.Save(t);
+			docketService.Save(t);
 
-			geoService.GetGeoIpAsync(t, ((Tracking updated) => {
-				trackingService.Save(updated);
+			geoService.GetGeoIpAsync(t, ((Docket updated) => {
+				docketService.Save(updated);
 			}));
 
 			return View(s);

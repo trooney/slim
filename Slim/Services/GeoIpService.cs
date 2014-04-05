@@ -4,6 +4,7 @@ using RestSharp;
 using AutoMapper;
 
 using Slim.Models;
+using Slim.DTO;	
 
 namespace Slim.Services
 {
@@ -31,7 +32,7 @@ namespace Slim.Services
 
 		// Looks up GeoData service using t.Ip
 		// Then maps the response back onto t
-		public void GetGeoIpAsync(Tracking t, Action<Tracking> successCallback)
+		public void GetGeoIpAsync(Docket t, Action<Docket> successCallback)
 		{
 			var client = CreateGeoIpClient();
 			var request = CreateGeoIpRequest(t.Ip);
@@ -41,7 +42,7 @@ namespace Slim.Services
 					return;
 				}
 
-				Mapper.Map<GeoIp, Tracking>(response.Data, t);
+				Mapper.Map<GeoIp, Docket>(response.Data, t);
 
 				successCallback(t);
 			});

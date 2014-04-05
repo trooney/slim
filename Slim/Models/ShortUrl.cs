@@ -1,18 +1,19 @@
 ﻿using System;
-using SQLite;
 
+using SQLite;
 using Slim.Components;
 
 namespace Slim.Models
 {
 	public class ShortUrl : IShortUrl, IModel
 	{
-		[PrimaryKey, AutoIncrement]
+		[AutoIncrement, PrimaryKey]
 		public int? Id { get; set; }
+		[MaxLength(2048)]
 		public string FullUrl { get; set; }
 		public string Hash { get; set; }
 		public int Count { get; set; }
-		public DateTime? CreatedDate { get; set; }
+		public DateTime CreatedDate { get; set; }
 
 		public ShortUrl()
 		{

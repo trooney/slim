@@ -17,6 +17,8 @@ namespace Slim
 	{
 		public static void RegisterRoutes (RouteCollection routes)
 		{
+			routes.IgnoreRoute("favicon.ico");
+
 			routes.IgnoreRoute ("{resource}.axd/{*pathInfo}");
 
 			routes.MapRoute (
@@ -41,6 +43,12 @@ namespace Slim
 				"Shorten",
 				"shorten",
 				new { controller = "Frontend", action = "Shorten" }
+			);
+
+			routes.MapRoute (
+				"Api",
+				"api/{hash}/countries",
+				new { controller = "Api", action = "ShortUrlCountryUsage", hash = "" }
 			);
 
 			routes.MapRoute (
@@ -79,6 +87,9 @@ namespace Slim
 
 			var db = new SQLite.SQLiteConnection(path);
 
+			db.CreateTable<Slim.Models.ShortUrl>();
+			db.CreateTable<Slim.Models.Docket>();
+
 			return db;
 		}
 			
@@ -96,7 +107,7 @@ namespace Slim
 
 		private void SetupAutomapper()
 		{
-			Mapper.CreateMap<Slim.Models.GeoIp, Slim.Models.Tracking>();
+			Mapper.CreateMap<Slim.DTO.GeoIp, Slim.Models.Docket>();
 		}
 
 	}

@@ -9,6 +9,8 @@
     <RootNamespace>Slim</RootNamespace>
     <AssemblyName>Slim</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <ProductVersion>12.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -90,6 +92,7 @@
     <Folder Include="Assets\img\" />
     <Folder Include="Views\Shared\Partials\" />
     <Folder Include="Views\Shared\Partials\ShortUrl\" />
+    <Folder Include="DTO\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Global.asax.cs">
@@ -107,13 +110,9 @@
     <Compile Include="Models\IModel.cs" />
     <Compile Include="Models\ShortUrl.cs" />
     <Compile Include="Repositories\ShortUrlRepository.cs" />
-    <Compile Include="Models\Tracking.cs" />
-    <Compile Include="Services\TrackingService.cs" />
     <Compile Include="Services\ShortUrlService.cs" />
     <Compile Include="Services\GeoIpService.cs" />
-    <Compile Include="Models\GeoIp.cs" />
     <Compile Include="Components\UrlMunger.cs" />
-    <Compile Include="Repositories\TrackingRepository.cs" />
     <Compile Include="Models\IShortUrl.cs" />
     <Compile Include="Components\TinyIoCControllerFactory.cs" />
     <Compile Include="Helpers\SlimUrlHelper.cs" />
@@ -122,6 +121,11 @@
     <Compile Include="ViewModels\Shorten.cs" />
     <Compile Include="ValidationAttributes\SlimUrlBlockerAttribute.cs" />
     <Compile Include="ValidationAttributes\AbstractUrlAttribute.cs" />
+    <Compile Include="DTO\GeoIp.cs" />
+    <Compile Include="DTO\ShortUrlCountryUsage.cs" />
+    <Compile Include="Models\Docket.cs" />
+    <Compile Include="Services\DocketService.cs" />
+    <Compile Include="Repositories\DocketRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Web.config" />
@@ -142,6 +146,7 @@
     <Content Include="Views\Shared\Partials\Layout\Footer.cshtml" />
     <Content Include="Views\Shared\Partials\ShortUrl\Create.cshtml" />
     <Content Include="Views\Shared\Partials\ShortUrl\List.cshtml" />
+    <Content Include="Assets\img\favicon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
