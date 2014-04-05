@@ -122,10 +122,10 @@
     <Compile Include="ValidationAttributes\SlimUrlBlockerAttribute.cs" />
     <Compile Include="ValidationAttributes\AbstractUrlAttribute.cs" />
     <Compile Include="DTO\GeoIp.cs" />
-    <Compile Include="DTO\ShortUrlCountryUsage.cs" />
     <Compile Include="Models\Docket.cs" />
     <Compile Include="Services\DocketService.cs" />
     <Compile Include="Repositories\DocketRepository.cs" />
+    <Compile Include="DTO\ShortUrlUsage.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Web.config" />

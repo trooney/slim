@@ -13,6 +13,7 @@ namespace Slim.Models
 	public class Docket : IModel
 	{
 		public readonly string DefaultIp = "0.0.0.0";
+		public readonly string DefaultCity = "Reserved";
 		public readonly string DefaultCountryCode = "RD";
 		public readonly string DefaultCountryName = "Reserved";
 
@@ -26,6 +27,7 @@ namespace Slim.Models
 		public string CountryCode { get; set; }
 		public string CountryName { get; set; }
 		public string RegionName { get; set; }
+		[Indexed("IX_City", 3)]
 		public string City { get; set; }
 		public string Zipcode { get; set; }
 		public double Latitude { get; set; }
@@ -36,6 +38,7 @@ namespace Slim.Models
 		public Docket()
 		{
 			Ip = DefaultIp;
+			City = DefaultCity;
 			CountryCode = DefaultCountryCode;
 			CountryName = DefaultCountryName;
 			CreatedDate = DateTime.Now;

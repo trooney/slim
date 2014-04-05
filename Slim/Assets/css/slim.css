@@ -96,7 +96,10 @@
 
 
 /* Layout */
-
+.logo {
+	width:300px;
+	font-size: 4rem;
+}
 .logo a {
 	color: #444444;
 }
@@ -137,6 +140,6 @@
 /* Form, when in header */
 @media only screen and (min-width: 768px) {
 	.site-header .slim-create-form {
-		padding-top:58px;
+		padding-top:54px;
 	}
 }

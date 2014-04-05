@@ -1,25 +1,29 @@
 ﻿@model IEnumerable<Slim.Models.ShortUrl>
 
 <div class="short-list">
-@foreach (var slimUrl in Model) {
-	<div class="short-item">
+@foreach (var shortUrl in Model) {
+	<div class="short-item" data-hash="@shortUrl.Hash">
 		<div class="link-icon">
 			<i class="fa fa-link "></i>
 		</div>
 		<div class="full-url">
-			<a href="@Html.SlimAbsoluteShortUrl(@slimUrl)">@slimUrl.FullUrl</a>
+			<a href="@Html.SlimAbsoluteShortUrl(@shortUrl)">@shortUrl.FullUrl</a>
 		</div>
-		<div class="host">@Html.SlimHostnameForUrl(@slimUrl.FullUrl)</div>
+		<div class="host">@Html.SlimHostnameForUrl(@shortUrl.FullUrl)</div>
 		<div class="short-url">
-			<a href="@Html.SlimAbsoluteShortUrl(@slimUrl)">@Html.SlimFriendlyShortUrl(@slimUrl)</a>
+			<a href="@Html.SlimAbsoluteShortUrl(@shortUrl)">@Html.SlimFriendlyShortUrl(@shortUrl)</a>
 		</div>
 		<div class="stats">
 			<a href="#">
-				<span class="click-count secondary label">@slimUrl.Count Clicks</span>
+				<span class="click-count secondary label">@shortUrl.Count Clicks</span>
 				<span class="stats-link"><i class="fa fa-tachometer"></i> View analytics</span>
 			</a>
 		</div>
-		<a class="copy-btn" href="@Html.SlimAbsoluteShortUrl(@slimUrl)"><span>Copy</span></a>
+		<a class="copy-btn" href="@Html.SlimAbsoluteShortUrl(@shortUrl)"><span>Copy</span></a>
+		<div class="short-usage-container">
+			<h5>Usage</h5>
+
+		</div>
 	</div>
 }
 </div>

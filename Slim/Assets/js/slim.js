@@ -19,10 +19,11 @@ var Alert = (function() {
 
 
 
-$('.short-list').each(function(i, el) {
+$('.short-item').each(function(i, el) {
+	console.log(el)
 	var $container = $(el)
 	var $trigger = $container.find('.copy-btn')
-	var url = $trigger.find('span').attr('href')
+	var url = $trigger.attr('href')
 
 	$trigger.zclip({
 		path: SWF_PATH,
@@ -30,7 +31,12 @@ $('.short-list').each(function(i, el) {
 		setCSSEffects: false,
 		afterCopy: function() {
 			document.body.focus()
-			Alert.notify('Slim URL ' + url + ' was copied to your clipboard', "success")
+			Alert.notify('Copied ' + url + ' to your clipboard', "success")
 		}
 	})
 })
+
+var countryUsage = [
+	{"Hash":"w7szu","Count":14,"CountryCode":"BM","CountryName":"Bermuda"},
+	{"Hash":"w7szu","Count":7,"CountryCode":"RD","CountryName":"Reserved"}
+]

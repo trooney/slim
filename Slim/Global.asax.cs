@@ -47,8 +47,8 @@ namespace Slim
 
 			routes.MapRoute (
 				"Api",
-				"api/{hash}/countries",
-				new { controller = "Api", action = "ShortUrlCountryUsage", hash = "" }
+				"api/{hash}/usage",
+				new { controller = "Api", action = "ShortUrlUsage", hash = "" }
 			);
 
 			routes.MapRoute (

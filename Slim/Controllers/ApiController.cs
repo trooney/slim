@@ -28,9 +28,9 @@ namespace Slim.Controllers
 			return Json("null", JsonRequestBehavior.AllowGet);
 		}
 
-		public JsonResult ShortUrlCountryUsage(string hash)
+		public JsonResult ShortUrlUsage(string hash)
 		{
-			var results = docketService.GetCountryUsage(hash);
+			var results = docketService.GetUsage(hash);
 
 			if (results.Count == 0) {
 				HttpContext.Response.StatusCode = 404;

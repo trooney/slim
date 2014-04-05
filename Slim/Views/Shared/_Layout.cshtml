@@ -3,22 +3,22 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>@(ViewBag.Title == null ? "Slim - A simple URL minification service" : ViewBag.Title)</title>
+        <title>@(ViewBag.Title == null ? "SlimUrl - A simple URL minification service" : ViewBag.Title)</title>
         <meta name="description" content="Slim - Minify your URLs with Slim, a simple URL minification service">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" type="image/png" href="@Url.Content("~/Assets/img/favicon.png")" />
 		<link rel="stylesheet" media="all" href="//cdn.jsdelivr.net/gumby/2.5.11/css/gumby.css">
 		<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
         <link rel="stylesheet" href="@Url.Content("~/Assets/css/slim.css")">
-        <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.dev.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js"></script>
     </head>
 	<body>
 		<header class="site-header">
 			<div class="row">
-				<div class="three columns">
-					<h1 class="logo"><a href="/"><img src="@Url.Content("~/Assets/img/eye.png")" />Slim</a></h1>
+				<div class="four columns">
+					<h1 class="logo"><a href="/"><img src="@Url.Content("~/Assets/img/eye.png")" />SlimUrl</a></h1>
 				</div>
-				<div class="nine columns">
+				<div class="eight columns">
 					@RenderSection("BesideLogo", false)
 				</div>
 			</div>

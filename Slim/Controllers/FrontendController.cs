@@ -100,7 +100,11 @@ namespace Slim.Controllers
 				docketService.Save(updated);
 			}));
 
+			#if DEBUG
 			return View(s);
+			#else
+			return RedirectPermanent(s.FullUrl);
+			#endif
 		}
 
 	}

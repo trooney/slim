@@ -41,9 +41,9 @@ namespace Slim.Services
 			return a;
 		}
 
-		public List<ShortUrlCountryUsage> GetCountryUsage(string hash)
+		public List<ShortUrlUsage> GetUsage(string hash)
 		{
-			return repository.GetCountryUsage(hash);
+			return repository.GetUsage(hash);
 		}
 
 	}
