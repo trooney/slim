@@ -23,10 +23,11 @@ namespace Slim.Repositories
 				LEFT JOIN Docket d
 				ON s.Id = d.ShortUrlId
 				WHERE s.Hash = ?
+				AND d.Activity = ?
 				GROUP BY d.City, d.CountryCode, d.CountryName, s.Hash
 				HAVING Count(d.CountryCode) > 0
 				ORDER BY Count(d.CountryCode) DESC
-			", hash);
+			", hash, DocketTypes.Redirected);
 
 			return results;
 		}

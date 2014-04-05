@@ -12,10 +12,10 @@ namespace Slim.Models
 
 	public class Docket : IModel
 	{
-		public readonly string DefaultIp = "0.0.0.0";
-		public readonly string DefaultCity = "Reserved";
-		public readonly string DefaultCountryCode = "RD";
-		public readonly string DefaultCountryName = "Reserved";
+		public static readonly string DefaultIp = "0.0.0.0";
+		public static readonly string DefaultCity = "Reserved";
+		public static readonly string DefaultCountryCode = "RD";
+		public static readonly string DefaultCountryName = "Reserved";
 
 		[PrimaryKey, AutoIncrement]
 		public int? Id { get; set; }
@@ -37,10 +37,10 @@ namespace Slim.Models
 
 		public Docket()
 		{
-			Ip = DefaultIp;
-			City = DefaultCity;
-			CountryCode = DefaultCountryCode;
-			CountryName = DefaultCountryName;
+			Ip = Docket.DefaultIp;
+			City = Docket.DefaultCity;
+			CountryCode = Docket.DefaultCountryCode;
+			CountryName = Docket.DefaultCountryName;
 			CreatedDate = DateTime.Now;
 		}
 

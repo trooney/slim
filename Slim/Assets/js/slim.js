@@ -71,7 +71,7 @@ var Usage = (function() {
 				})
 
 				p.fail(function() {
-					$container.empty().text("Oops! Failed to load data")
+					$container.empty().text("No usage data found for this slim url!")
 				})
 			})
 
