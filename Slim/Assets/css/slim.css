@@ -153,8 +153,15 @@
 .logo a:hover {
 	color:#666;
 }
-
-.footer p {
+.footer .github {
+	margin-top:9px;
+	background:#E9E9E9;
+}
+.footer .github p {
+	padding:9px;
+	text-align:center;
+}
+.footer .disclaimer p {
 	font-size:10px;
 }
 
