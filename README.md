@@ -9,3 +9,13 @@ Slim uses the following components:
 - TinyIoC
 - sqlite-net
 - AutoMapper
+
+Deploy
+---
+
+Build your project in Xamarin Studio. Then run the `make build` task and rsync the results to your server.
+
+```
+make build
+rsync --exclude=build/App_Data/slim.sqlite -a build/ username@example:/path/to/slimurl.org
+```
