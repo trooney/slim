@@ -13,10 +13,20 @@ Slim uses the following components:
 Running
 ---
 
-Setup mono, nginx, and fastcgi-mono-server4. You can start the daemon with the following command, but must build your own startup script.
+Setup mono, nginx, and fastcgi-mono-server4. You can start the daemon with the following command:
 
 ```
 fastcgi-mono-server4 /applications=slimurl.example.com:/:/var/www/slimurl.example.com/ /socket=tcp:127.0.0.1:9000 /printlog=True /loglevel=All /verbose=True
+```
+
+Installing
+---
+
+Start-up script example is provide in /extras
+
+```
+chmod +x /etc/init.d/monoserve
+update-rc.d monoserve defaults
 ```
 
 Deploy
