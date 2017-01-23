@@ -29,6 +29,8 @@ chmod +x /etc/init.d/monoserve
 update-rc.d monoserve defaults
 ```
 
+Note: Ensure that both the /App_Data directory and the /App_Data/slim.sqlite file exist and are read-writable by the webserver user.
+
 Deploy
 ---
 
@@ -36,5 +38,5 @@ Build your project in Xamarin Studio. Then run the `make build` task and rsync t
 
 ```
 make build
-rsync --exclude=build/App_Data/slim.sqlite -a build/ username@example:/path/to/slimurl.example.com
+rsync -avz --exclude 'App_Data*'  --exclude '*.sqlite' build/ username@example:/path/to/slimurl.example.com
 ```
