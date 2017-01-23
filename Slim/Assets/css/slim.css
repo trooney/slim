@@ -80,7 +80,6 @@
 	right:0;
 	padding:10px;
 	display:inline-block;
-	/*height: 36px;*/
 	background:#3085d6;
 	border: 1px solid #3085d6;
 	line-height: 18px;
@@ -90,7 +89,7 @@
 	padding:0px 6px;
 }
 
-.short-item .copy-btn.hover {
+.short-item .zeroclipboard-is-hover {
 	background:#5b9ede;
 }
 

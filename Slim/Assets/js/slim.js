@@ -1,7 +1,4 @@
-﻿var SWF_PATH = "//cdnjs.cloudflare.com/ajax/libs/zclip/1.1.2/ZeroClipboard.swf"
-
-
-var Alert = (function() {
+﻿var Alert = (function() {
 	var $container = $('.slim-alerts')
 
 	function create(message, type) {
@@ -84,18 +81,22 @@ var Usage = (function() {
 $('.short-item').each(function(i, el) {
 	var $container = $(el)
 
-	// ZClip
 	var $trigger = $container.find('.copy-btn')
 	var url = $trigger.attr('href')
-	$trigger.zclip({
-		path: SWF_PATH,
-		copy: url,
-		setCSSEffects: false,
-		afterCopy: function() {
-			document.body.focus()
-			Alert.notify('Copied ' + url + ' to your clipboard', "success")
-		}
-	})
+
+	$trigger.on('click', function(e) {
+		e.preventDefault();
+	});
+
+	var client = new ZeroClipboard($trigger);
+
+	client.on('ready', function() {
+		client.on( "copy", function (event) {
+			event.clipboardData.setData("text/plain", url);
+			document.body.focus();
+			Alert.notify('Copied ' + url + ' to your clipboard', "success");
+		});
+	});
 
 	// Usage
 	Usage.bind($container)
