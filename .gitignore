@@ -69,3 +69,6 @@ packages/
 
 #Test files
 *.testsettings
+
+#Build files
+build/*
